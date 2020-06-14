@@ -1,14 +1,44 @@
 use clap::{self, App, Arg, ArgMatches};
+use std::path::PathBuf;
+use std::{env, path::Path};
 
+mod consts;
+mod file_system;
 mod podcasts;
+
+#[derive(Debug)]
+pub struct Config {
+    app_directory: PathBuf,
+    download_directory: PathBuf,
+}
 
 #[derive(Debug)]
 pub struct Application {
     matches: ArgMatches,
+    config: Config,
 }
 
 impl Application {
+    /// Constructs a new Application.
+    /// PODCASTS_DIR is used as the main directory for the application. by default it is set
+    /// to the .podcasts directory in the HOME directory of the user
+    /// PODCASTS_DOWNLOAD_DIR is used as the directory where all the podcasts are downloaded to
     pub fn new() -> Self {
+        let home_directory = env::var("HOME").expect("Can't find $HOME dir variable");
+        let app_directory = env::var("PODCASTS_DIR").unwrap_or(format!(
+            "{}/{}",
+            home_directory.clone(),
+            ".podcasts"
+        ));
+
+        let download_directory =
+            env::var("PODCASTS_DOWNLOAD_DIR").unwrap_or(format!("{}/Downloads", home_directory));
+
+        let config = Config {
+            app_directory: PathBuf::from(app_directory),
+            download_directory: PathBuf::from(download_directory),
+        };
+
         Self {
             matches: App::new("pcasts")
                 .version("1.0.0")
@@ -139,12 +169,14 @@ impl Application {
                                 ),
                         ),
                 ).get_matches(),
+            config
         }
     }
 
+    /// Matches the passed sub commands. podcasts and episodes are the only options
     pub fn parse(&mut self) {
         if let Some(matches) = self.matches.subcommand_matches("podcasts") {
-            podcasts::Podcasts::new(matches).run();
+            podcasts::Podcasts::new(matches, &self.config).run();
         }
 
         if let Some(ref _matches) = &self.matches.subcommand_matches("episodes") {
