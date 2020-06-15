@@ -5,6 +5,7 @@ use std::{env, path::Path};
 mod consts;
 mod file_system;
 mod podcasts;
+mod web;
 
 #[derive(Debug)]
 pub struct Config {

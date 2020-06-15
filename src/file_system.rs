@@ -11,27 +11,13 @@ pub enum FileSystemErrors {
 }
 
 impl FileSystem {
-    pub fn open(path: &Path) -> Result<fs::File, ()> {
-        let directory = fs::File::open(path);
-        match directory {
-            Ok(file) => Ok(file),
-            Err(err) => match err.kind() {
-                std::io::ErrorKind::NotFound => {
-                    println!("not found error");
-                    Err(())
-                }
-                _ => {
-                    println!("other error");
-                    Err(())
-                }
-            },
-        }
-    }
-
     pub fn open_podcasts_list(app_directory: &Path) -> Result<fs::File, FileSystemErrors> {
         let file_path = format!("{}/{}", app_directory.display(), PODCAST_LIST_FILE);
-        let file = fs::File::open(&file_path);
-        if let Ok(file) = file {
+        if let Ok(file) = fs::OpenOptions::new()
+            .read(true)
+            .append(true)
+            .open(&file_path)
+        {
             return Ok(file);
         }
 
