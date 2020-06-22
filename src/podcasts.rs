@@ -1,14 +1,12 @@
-use crate::file_system;
-use crate::web;
-use crate::Config;
+use crate::{file_system, web, Config, Errors};
 use clap::{ArgMatches, Values};
 use csv;
-use rayon::prelude::*;
-use reqwest;
 use rss;
 use serde::Serialize;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
+use std::{
+    collections::hash_map::DefaultHasher,
+    hash::{Hash, Hasher},
+};
 
 #[derive(Debug, Serialize)]
 struct Podcast {
@@ -31,23 +29,25 @@ impl<'a> Podcasts<'a> {
     }
 
     /// Continues to match the rest of the passed arguments to the podcasts sub command
-    pub fn run(&self) {
+    pub fn run(&self) -> Result<(), Errors> {
         if let Some(add_values) = &self.matches.values_of("add") {
-            self.add(&add_values);
+            return self.add(&add_values);
         }
 
         if let Some(remove_values) = self.matches.values_of("remove") {
-            self.remove(&remove_values);
+            return self.remove(&remove_values);
         }
 
         if self.matches.is_present("list") {
-            self.list();
+            return self.list();
         }
+
+        Ok(())
     }
 
     /// Adds the passed podcasts values to the "podcast_list.csv" file which is located in the
     /// PODCASTS_DIR directory
-    fn add(&self, add_values: &Values) {
+    fn add(&self, add_values: &Values) -> Result<(), Errors> {
         let values = add_values.clone();
         let urls: Vec<&str> = values.map(|value| value).collect();
         let mut hasher = DefaultHasher::new();
@@ -56,8 +56,12 @@ impl<'a> Podcasts<'a> {
             .iter()
             .map(|(url, response)| match response {
                 Ok(res) => {
-                    let rss_channel =
-                        rss::Channel::read_from(&res[..]).expect("Can't create rss channel");
+                    let rss_channel = rss::Channel::read_from(&res[..]);
+                    if rss_channel.is_err() {
+                        return None;
+                    }
+                    let rss_channel = rss_channel.unwrap();
+
                     let podcast_title = rss_channel.title().to_string();
                     let podcast_url = rss_channel.link().to_string();
                     let rss_url = url.to_string();
@@ -74,27 +78,26 @@ impl<'a> Podcasts<'a> {
             })
             .collect();
 
-        // TODO handle error
-        let mut podcasts_list_file =
-            file_system::FileSystem::open_podcasts_list(&self.config.app_directory).unwrap();
+        let podcasts_list_file =
+            file_system::FileSystem::open_podcasts_list(&self.config.app_directory)?;
 
         let mut writer = csv::Writer::from_writer(podcasts_list_file);
         for podcast in podcasts {
-            writer.serialize(podcast).expect("error1");
+            writer.serialize(podcast)?;
         }
 
-        // TODO handle error
-        writer.flush().expect("error2");
+        writer.flush()?;
+        Ok(())
     }
 
     /// Remove the passed podcasts from the "podcast_list.csv" file which is located in the
     /// PODCASTS_DIR directory. does nothing if the passed values are not present in the file
-    fn remove(&self, _remove_values: &Values) {
+    fn remove(&self, _remove_values: &Values) -> Result<(), Errors> {
         unimplemented!();
     }
 
     /// Lists the saved podcasts
-    fn list(&self) {
+    fn list(&self) -> Result<(), Errors> {
         unimplemented!();
     }
 }

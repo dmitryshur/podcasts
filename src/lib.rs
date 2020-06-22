@@ -1,11 +1,49 @@
 use clap::{self, App, Arg, ArgMatches};
-use std::path::PathBuf;
-use std::{env, path::Path};
+use csv;
+use std::{env, fmt, io, path::PathBuf};
 
 mod consts;
 mod file_system;
 mod podcasts;
 mod web;
+
+#[derive(Debug)]
+pub enum Errors {
+    RSS,
+    IO(io::Error),
+    CSV(csv::Error),
+}
+
+impl fmt::Display for Errors {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            Errors::RSS => write!(f, "Couldn't parse RSS feed"),
+            Errors::IO(ref e) => write!(f, "IO error: {}", e),
+            Errors::CSV(ref e) => write!(f, "CSV error: {}", e),
+        }
+    }
+}
+
+impl From<csv::Error> for Errors {
+    fn from(err: csv::Error) -> Errors {
+        Errors::CSV(err)
+    }
+}
+
+impl From<file_system::FileSystemErrors> for Errors {
+    fn from(err: file_system::FileSystemErrors) -> Errors {
+        match err {
+            file_system::FileSystemErrors::CreatePodcastsFile(e) => Errors::IO(e),
+            file_system::FileSystemErrors::CreateAppDirectory(e) => Errors::IO(e),
+        }
+    }
+}
+
+impl From<io::Error> for Errors {
+    fn from(err: io::Error) -> Errors {
+        Errors::IO(err)
+    }
+}
 
 #[derive(Debug)]
 pub struct Config {
@@ -175,13 +213,15 @@ impl Application {
     }
 
     /// Matches the passed sub commands. podcasts and episodes are the only options
-    pub fn parse(&mut self) {
+    pub fn parse(&mut self) -> Result<(), Errors> {
         if let Some(matches) = self.matches.subcommand_matches("podcasts") {
-            podcasts::Podcasts::new(matches, &self.config).run();
+            return podcasts::Podcasts::new(matches, &self.config).run();
         }
 
         if let Some(ref _matches) = &self.matches.subcommand_matches("episodes") {
             unimplemented!();
         }
+
+        Ok(())
     }
 }
