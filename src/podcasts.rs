@@ -1,14 +1,14 @@
-use crate::{file_system, web, Config, Errors};
+use crate::{file_system::FileSystem, web, Config, Errors};
 use clap::{ArgMatches, Values};
 use csv;
 use rss;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::{
-    collections::hash_map::DefaultHasher,
+    collections::{hash_map::DefaultHasher, HashSet},
     hash::{Hash, Hasher},
 };
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 struct Podcast {
     id: u64,
     url: String,
@@ -49,19 +49,38 @@ impl<'a> Podcasts<'a> {
     /// PODCASTS_DIR directory
     fn add(&self, add_values: &Values) -> Result<(), Errors> {
         let values = add_values.clone();
-        let urls: Vec<&str> = values.map(|value| value).collect();
+
+        let podcasts_list_file = FileSystem::open_podcasts_list(&self.config.app_directory)?;
+        let mut reader = csv::Reader::from_reader(&podcasts_list_file);
+
+        // Load previously saved URLs
+        let saved_urls: HashSet<String> = reader
+            .deserialize()
+            .filter_map(|item: Result<Podcast, csv::Error>| item.map(|podcast| podcast.rss_url).ok())
+            .collect();
+
+        // Work only with new URLs
+        let urls: Vec<&str> = values
+            .map(|value| value.trim())
+            .filter(|value| {
+                return !saved_urls.contains(*value);
+            })
+            .collect();
+
         let mut hasher = DefaultHasher::new();
-        let podcasts: Vec<Option<Podcast>> = web::Web::new()
+        let podcasts: Vec<Podcast> = web::Web::new()
             .get(&urls)
             .iter()
-            .map(|(url, response)| match response {
+            .filter_map(|(url, response)| match response {
                 Ok(res) => {
+                    // Parse RSS feed
                     let rss_channel = rss::Channel::read_from(&res[..]);
                     if rss_channel.is_err() {
                         return None;
                     }
                     let rss_channel = rss_channel.unwrap();
 
+                    // Get needed data from RSS feed and return new Podcast struct
                     let podcast_title = rss_channel.title().to_string();
                     let podcast_url = rss_channel.link().to_string();
                     let rss_url = url.to_string();
@@ -78,10 +97,17 @@ impl<'a> Podcasts<'a> {
             })
             .collect();
 
-        let podcasts_list_file =
-            file_system::FileSystem::open_podcasts_list(&self.config.app_directory)?;
+        // If some podcasts were previously saved, append with no headers
+        let mut writer = if saved_urls.len() > 0 {
+            csv::WriterBuilder::new()
+                .has_headers(false)
+                .from_writer(podcasts_list_file)
+        } else {
+            csv::WriterBuilder::new()
+                .has_headers(true)
+                .from_writer(podcasts_list_file)
+        };
 
-        let mut writer = csv::Writer::from_writer(podcasts_list_file);
         for podcast in podcasts {
             writer.serialize(podcast)?;
         }
