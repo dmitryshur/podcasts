@@ -1,19 +1,31 @@
 use crate::{file_system::FileSystem, web, Config, Errors};
 use clap::{ArgMatches, Values};
+use colored::*;
 use csv;
 use rss;
 use serde::{Deserialize, Serialize};
+use std::fmt;
 use std::{
     collections::{hash_map::DefaultHasher, HashSet},
     hash::{Hash, Hasher},
 };
 
 #[derive(Debug, Serialize, Deserialize)]
-struct Podcast {
+pub struct Podcast {
     id: u64,
     url: String,
     rss_url: String,
     title: String,
+}
+
+impl fmt::Display for Podcast {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let mut str = format!("{:12}{}\n", "Title:".green(), self.title);
+        str.push_str(&format!("{:12}{}\n", "Site URL:".green(), self.url));
+        str.push_str(&format!("{:12}{}\n", "RSS URL:".green(), self.rss_url));
+        str.push_str(&format!("{:12}{}\n", "ID:".green(), self.id));
+        write!(f, "{}", str)
+    }
 }
 
 #[derive(Debug)]
@@ -124,6 +136,14 @@ impl<'a> Podcasts<'a> {
 
     /// Lists the saved podcasts
     fn list(&self) -> Result<(), Errors> {
-        unimplemented!();
+        let podcasts_list_file = FileSystem::open_podcasts_list(&self.config.app_directory)?;
+        let mut reader = csv::Reader::from_reader(&podcasts_list_file);
+
+        for value in reader.deserialize() {
+            let podcast: Podcast = value?;
+            println!("{}", podcast);
+        }
+
+        Ok(())
     }
 }
