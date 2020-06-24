@@ -9,12 +9,42 @@ pub enum FileSystemErrors {
     CreatePodcastsFile(io::Error),
 }
 
-impl FileSystem {
-    pub fn open_podcasts_list(app_directory: &Path) -> Result<fs::File, FileSystemErrors> {
-        let file_path = format!("{}/{}", app_directory.display(), PODCAST_LIST_FILE);
-        let file = fs::OpenOptions::new().read(true).append(true).open(&file_path);
+#[derive(Debug, PartialEq)]
+pub enum FilePermissions {
+    Read,
+    Write,
+    WriteTruncate,
+    Append,
+}
 
-        if let Ok(file) = file {
+impl FileSystem {
+    pub fn open_podcasts_list(
+        app_directory: &Path,
+        permissions: Vec<FilePermissions>,
+    ) -> Result<fs::File, FileSystemErrors> {
+        let file_path = format!("{}/{}", app_directory.display(), PODCAST_LIST_FILE);
+        let mut file = fs::OpenOptions::new();
+
+        for permission in permissions {
+            if permission == FilePermissions::Read {
+                file.read(true);
+            }
+
+            if permission == FilePermissions::Write {
+                file.write(true);
+            }
+
+            if permission == FilePermissions::WriteTruncate {
+                file.write(true);
+                file.truncate(true);
+            }
+
+            if permission == FilePermissions::Append {
+                file.append(true);
+            }
+        }
+
+        if let Ok(file) = file.open(&file_path) {
             return Ok(file);
         }
 
@@ -23,6 +53,7 @@ impl FileSystem {
             return Err(FileSystemErrors::CreateAppDirectory(err));
         }
 
+        // If the file doesn't exist, it will always be in write mode and not append
         fs::OpenOptions::new()
             .create(true)
             .read(true)

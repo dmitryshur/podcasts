@@ -1,4 +1,7 @@
-use crate::{file_system::FileSystem, web, Config, Errors};
+use crate::{
+    file_system::{FilePermissions, FileSystem},
+    web, Config, Errors,
+};
 use clap::{ArgMatches, Values};
 use colored::*;
 use csv;
@@ -62,7 +65,10 @@ impl<'a> Podcasts<'a> {
     fn add(&self, add_values: &Values) -> Result<(), Errors> {
         let values = add_values.clone();
 
-        let podcasts_list_file = FileSystem::open_podcasts_list(&self.config.app_directory)?;
+        let podcasts_list_file = FileSystem::open_podcasts_list(
+            &self.config.app_directory,
+            vec![FilePermissions::Read, FilePermissions::Append],
+        )?;
         let mut reader = csv::Reader::from_reader(&podcasts_list_file);
 
         // Load previously saved URLs
@@ -130,13 +136,38 @@ impl<'a> Podcasts<'a> {
 
     /// Remove the passed podcasts from the "podcast_list.csv" file which is located in the
     /// PODCASTS_DIR directory. does nothing if the passed values are not present in the file
-    fn remove(&self, _remove_values: &Values) -> Result<(), Errors> {
-        unimplemented!();
+    fn remove(&self, remove_values: &Values) -> Result<(), Errors> {
+        let mut values = remove_values.clone();
+
+        let podcasts_list_file =
+            FileSystem::open_podcasts_list(&self.config.app_directory, vec![FilePermissions::Read])?;
+        let mut reader = csv::Reader::from_reader(podcasts_list_file);
+
+        // We overwrite the whole file with the remaining podcasts (minus the ones passed as args)
+        let filtered_podcasts: Vec<Podcast> = reader
+            .deserialize()
+            .filter_map(|item: Result<Podcast, csv::Error>| item.ok())
+            .filter(|podcast| !values.any(|value| value.trim() == podcast.rss_url))
+            .collect();
+
+        // Reopen file because truncation happens right after the opening of the file
+        let podcasts_list_file =
+            FileSystem::open_podcasts_list(&self.config.app_directory, vec![FilePermissions::WriteTruncate])?;
+
+        let mut writer = csv::Writer::from_writer(podcasts_list_file);
+        for podcast in filtered_podcasts {
+            writer.serialize(podcast)?;
+        }
+
+        writer.flush()?;
+
+        Ok(())
     }
 
     /// Lists the saved podcasts
     fn list(&self) -> Result<(), Errors> {
-        let podcasts_list_file = FileSystem::open_podcasts_list(&self.config.app_directory)?;
+        let podcasts_list_file =
+            FileSystem::open_podcasts_list(&self.config.app_directory, vec![FilePermissions::Read])?;
         let mut reader = csv::Reader::from_reader(&podcasts_list_file);
 
         for value in reader.deserialize() {
