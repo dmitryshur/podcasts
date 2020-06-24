@@ -1,12 +1,11 @@
-pub struct FileSystem;
 use std::{fs, io, path::Path};
-
-const PODCAST_LIST_FILE: &'static str = "podcast_list.csv";
 
 #[derive(Debug)]
 pub enum FileSystemErrors {
-    CreateAppDirectory(io::Error),
-    CreatePodcastsFile(io::Error),
+    CreateDirectory(io::Error),
+    CreateFile(io::Error),
+    RenameError(io::Error),
+    RemoveError(io::Error),
 }
 
 #[derive(Debug, PartialEq)]
@@ -17,29 +16,40 @@ pub enum FilePermissions {
     Append,
 }
 
-impl FileSystem {
-    pub fn open_podcasts_list(
-        app_directory: &Path,
-        permissions: Vec<FilePermissions>,
-    ) -> Result<fs::File, FileSystemErrors> {
-        let file_path = format!("{}/{}", app_directory.display(), PODCAST_LIST_FILE);
+pub struct FileSystem<'a, 'b> {
+    directory: &'a Path,
+    file_name: &'b str,
+    permissions: Vec<FilePermissions>,
+}
+
+impl<'a, 'b> FileSystem<'a, 'b> {
+    pub fn new(directory: &'a Path, file_name: &'b str, permissions: Vec<FilePermissions>) -> Self {
+        Self {
+            directory,
+            file_name,
+            permissions,
+        }
+    }
+
+    pub fn open(&self) -> Result<fs::File, FileSystemErrors> {
+        let file_path = format!("{}/{}", self.directory.display(), self.file_name);
         let mut file = fs::OpenOptions::new();
 
-        for permission in permissions {
-            if permission == FilePermissions::Read {
+        for permission in &self.permissions {
+            if *permission == FilePermissions::Read {
                 file.read(true);
             }
 
-            if permission == FilePermissions::Write {
+            if *permission == FilePermissions::Write {
                 file.write(true);
             }
 
-            if permission == FilePermissions::WriteTruncate {
+            if *permission == FilePermissions::WriteTruncate {
                 file.write(true);
                 file.truncate(true);
             }
 
-            if permission == FilePermissions::Append {
+            if *permission == FilePermissions::Append {
                 file.append(true);
             }
         }
@@ -48,9 +58,9 @@ impl FileSystem {
             return Ok(file);
         }
 
-        let directory = fs::create_dir_all(app_directory);
+        let directory = fs::create_dir_all(self.directory);
         if let Err(err) = directory {
-            return Err(FileSystemErrors::CreateAppDirectory(err));
+            return Err(FileSystemErrors::CreateDirectory(err));
         }
 
         // If the file doesn't exist, it will always be in write mode and not append
@@ -59,6 +69,27 @@ impl FileSystem {
             .read(true)
             .write(true)
             .open(&file_path)
-            .map_err(|error| FileSystemErrors::CreatePodcastsFile(error))
+            .map_err(|error| FileSystemErrors::CreateFile(error))
+    }
+
+    #[allow(dead_code)]
+    pub fn rename(&mut self, new_name: &'static str) -> Result<(), FileSystemErrors> {
+        let old_path = format!("{}/{}", self.directory.display(), self.file_name);
+        let new_path = format!("{}/{}", self.directory.display(), new_name);
+
+        return match fs::rename(old_path, new_path) {
+            Ok(_) => {
+                self.file_name = new_name;
+                Ok(())
+            }
+            Err(error) => Err(FileSystemErrors::RenameError(error)),
+        };
+    }
+
+    #[allow(dead_code)]
+    pub fn remove(self) -> Result<(), FileSystemErrors> {
+        let path = format!("{}/{}", self.directory.display(), self.file_name);
+
+        fs::remove_file(path).map_err(|error| FileSystemErrors::RemoveError(error))
     }
 }

@@ -33,8 +33,10 @@ impl From<csv::Error> for Errors {
 impl From<file_system::FileSystemErrors> for Errors {
     fn from(err: file_system::FileSystemErrors) -> Errors {
         match err {
-            file_system::FileSystemErrors::CreatePodcastsFile(e) => Errors::IO(e),
-            file_system::FileSystemErrors::CreateAppDirectory(e) => Errors::IO(e),
+            file_system::FileSystemErrors::CreateFile(e) => Errors::IO(e),
+            file_system::FileSystemErrors::CreateDirectory(e) => Errors::IO(e),
+            file_system::FileSystemErrors::RenameError(e) => Errors::IO(e),
+            file_system::FileSystemErrors::RemoveError(e) => Errors::IO(e),
         }
     }
 }
@@ -64,14 +66,9 @@ impl Application {
     /// PODCASTS_DOWNLOAD_DIR is used as the directory where all the podcasts are downloaded to
     pub fn new() -> Self {
         let home_directory = env::var("HOME").expect("Can't find $HOME dir variable");
-        let app_directory = env::var("PODCASTS_DIR").unwrap_or(format!(
-            "{}/{}",
-            home_directory.clone(),
-            ".podcasts"
-        ));
+        let app_directory = env::var("PODCASTS_DIR").unwrap_or(format!("{}/{}", home_directory.clone(), ".podcasts"));
 
-        let download_directory =
-            env::var("PODCASTS_DOWNLOAD_DIR").unwrap_or(format!("{}/Downloads", home_directory));
+        let download_directory = env::var("PODCASTS_DOWNLOAD_DIR").unwrap_or(format!("{}/Downloads", home_directory));
 
         let config = Config {
             app_directory: PathBuf::from(app_directory),
@@ -115,9 +112,7 @@ impl Application {
                     App::new("episodes")
                         .subcommand(
                             App::new("list")
-                                .about(
-                                    "List episodes. By default lists the episodes of all the podcasts",
-                                )
+                                .about("List episodes. By default lists the episodes of all the podcasts")
                                 .arg(
                                     Arg::with_name("name")
                                         .about("Name of the podcast to list")
@@ -207,8 +202,9 @@ impl Application {
                                         .requires("add"),
                                 ),
                         ),
-                ).get_matches(),
-            config
+                )
+                .get_matches(),
+            config,
         }
     }
 

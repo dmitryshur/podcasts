@@ -7,10 +7,11 @@ use colored::*;
 use csv;
 use rss;
 use serde::{Deserialize, Serialize};
-use std::fmt;
 use std::{
     collections::{hash_map::DefaultHasher, HashSet},
+    fmt,
     hash::{Hash, Hasher},
+    io::{Read, Write},
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -46,15 +47,56 @@ impl<'a> Podcasts<'a> {
     /// Continues to match the rest of the passed arguments to the podcasts sub command
     pub fn run(&self) -> Result<(), Errors> {
         if let Some(add_values) = &self.matches.values_of("add") {
-            return self.add(&add_values);
+            let reader_file = FileSystem::new(
+                &self.config.app_directory,
+                "podcast_list.csv",
+                vec![FilePermissions::Read],
+            )
+            .open()?;
+
+            let writer_file = FileSystem::new(
+                &self.config.app_directory,
+                "podcast_list.csv",
+                vec![FilePermissions::Read, FilePermissions::Append],
+            )
+            .open()?;
+
+            return self.add(&add_values, reader_file, writer_file);
         }
 
         if let Some(remove_values) = self.matches.values_of("remove") {
-            return self.remove(&remove_values);
+            let mut reader_file = FileSystem::new(
+                &self.config.app_directory,
+                "podcast_list.csv",
+                vec![FilePermissions::Read],
+            )
+            .open()?;
+
+            // WriteTruncate mode erases file content, so we extract it here
+            let mut contents = String::new();
+            reader_file.read_to_string(&mut contents)?;
+
+            let writer_file = FileSystem::new(
+                &self.config.app_directory,
+                "podcast_list.csv",
+                vec![FilePermissions::WriteTruncate],
+            )
+            .open()?;
+
+            return self.remove(&remove_values, contents.as_bytes(), writer_file);
         }
 
         if self.matches.is_present("list") {
-            return self.list();
+            let reader_file = FileSystem::new(
+                &self.config.app_directory,
+                "podcast_list.csv",
+                vec![FilePermissions::Read],
+            )
+            .open()?;
+            let writer = std::io::stdout();
+            let writer = writer.lock();
+
+            return self.list(reader_file, writer);
         }
 
         Ok(())
@@ -62,14 +104,13 @@ impl<'a> Podcasts<'a> {
 
     /// Adds the passed podcasts values to the "podcast_list.csv" file which is located in the
     /// PODCASTS_DIR directory
-    fn add(&self, add_values: &Values) -> Result<(), Errors> {
+    fn add<R, W>(&self, add_values: &Values, reader: R, writer: W) -> Result<(), Errors>
+    where
+        R: Read,
+        W: Write,
+    {
         let values = add_values.clone();
-
-        let podcasts_list_file = FileSystem::open_podcasts_list(
-            &self.config.app_directory,
-            vec![FilePermissions::Read, FilePermissions::Append],
-        )?;
-        let mut reader = csv::Reader::from_reader(&podcasts_list_file);
+        let mut reader = csv::Reader::from_reader(reader);
 
         // Load previously saved URLs
         let saved_urls: HashSet<String> = reader
@@ -117,13 +158,9 @@ impl<'a> Podcasts<'a> {
 
         // If some podcasts were previously saved, append with no headers
         let mut writer = if saved_urls.len() > 0 {
-            csv::WriterBuilder::new()
-                .has_headers(false)
-                .from_writer(podcasts_list_file)
+            csv::WriterBuilder::new().has_headers(false).from_writer(writer)
         } else {
-            csv::WriterBuilder::new()
-                .has_headers(true)
-                .from_writer(podcasts_list_file)
+            csv::WriterBuilder::new().has_headers(true).from_writer(writer)
         };
 
         for podcast in podcasts {
@@ -136,25 +173,22 @@ impl<'a> Podcasts<'a> {
 
     /// Remove the passed podcasts from the "podcast_list.csv" file which is located in the
     /// PODCASTS_DIR directory. does nothing if the passed values are not present in the file
-    fn remove(&self, remove_values: &Values) -> Result<(), Errors> {
-        let mut values = remove_values.clone();
-
-        let podcasts_list_file =
-            FileSystem::open_podcasts_list(&self.config.app_directory, vec![FilePermissions::Read])?;
-        let mut reader = csv::Reader::from_reader(podcasts_list_file);
+    fn remove<R, W>(&self, remove_values: &Values, reader: R, writer: W) -> Result<(), Errors>
+    where
+        R: Read,
+        W: Write,
+    {
+        let values: Vec<&str> = remove_values.clone().collect();
+        let mut reader = csv::Reader::from_reader(reader);
 
         // We overwrite the whole file with the remaining podcasts (minus the ones passed as args)
         let filtered_podcasts: Vec<Podcast> = reader
             .deserialize()
             .filter_map(|item: Result<Podcast, csv::Error>| item.ok())
-            .filter(|podcast| !values.any(|value| value.trim() == podcast.rss_url))
+            .filter(|podcast| values.iter().all(|value| *value != podcast.rss_url))
             .collect();
 
-        // Reopen file because truncation happens right after the opening of the file
-        let podcasts_list_file =
-            FileSystem::open_podcasts_list(&self.config.app_directory, vec![FilePermissions::WriteTruncate])?;
-
-        let mut writer = csv::Writer::from_writer(podcasts_list_file);
+        let mut writer = csv::Writer::from_writer(writer);
         for podcast in filtered_podcasts {
             writer.serialize(podcast)?;
         }
@@ -165,14 +199,16 @@ impl<'a> Podcasts<'a> {
     }
 
     /// Lists the saved podcasts
-    fn list(&self) -> Result<(), Errors> {
-        let podcasts_list_file =
-            FileSystem::open_podcasts_list(&self.config.app_directory, vec![FilePermissions::Read])?;
-        let mut reader = csv::Reader::from_reader(&podcasts_list_file);
+    fn list<R, W>(&self, reader: R, mut writer: W) -> Result<(), Errors>
+    where
+        R: Read,
+        W: Write,
+    {
+        let mut reader = csv::Reader::from_reader(reader);
 
         for value in reader.deserialize() {
             let podcast: Podcast = value?;
-            println!("{}", podcast);
+            writeln!(writer, "{}", podcast)?;
         }
 
         Ok(())
