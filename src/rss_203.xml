@@ -1,0 +1,1332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?>
+<?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?>
+<rss
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        xmlns:cc="http://web.resource.org/cc/"
+        xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+        xmlns:media="http://search.yahoo.com/mrss/"
+        xmlns:content="http://purl.org/rss/1.0/modules/content/"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+    <channel>
+        <title>HTTP 203</title>
+        <pubDate>Fri, 08 May 2020 17:00:00 +0000</pubDate>
+        <lastBuildDate>Tue, 30 Jun 2020 19:28:30 +0000</lastBuildDate>
+        <generator>Libsyn WebEngine 2.0</generator>
+        <link>https://developers.google.com/web/shows/http203/podcast/</link>
+        <language>en</language>
+        <copyright>
+            <![CDATA[2020 © Google]]>
+        </copyright>
+        <docs>https://developers.google.com/web/shows/http203/podcast/</docs>
+        <managingEditor>jaffathecake@gmail.com (jaffathecake@gmail.com)</managingEditor>
+        <itunes:summary>
+            <![CDATA[Surma and Jake talk about whatever's going on in the world of web development.]]>
+        </itunes:summary>
+        <image>
+            <url>https://ssl-static.libsyn.com/p/assets/4/0/a/0/40a057340c51398b/HTTP_Podcast_Episodes_thumb_v2_1.png</url>
+            <title>HTTP 203</title>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/]]>
+            </link>
+        </image>
+        <itunes:author>Surma &amp; Jake</itunes:author>
+        <itunes:category text="Technology" />
+        <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/0/a/0/40a057340c51398b/HTTP_Podcast_Episodes_thumb_v2_1.png" />
+        <itunes:explicit>clean</itunes:explicit>
+        <itunes:owner>
+            <itunes:name>
+                <![CDATA[Google]]>
+            </itunes:name>
+            <itunes:email>trinhdinh@google.com</itunes:email>
+        </itunes:owner>
+        <description>
+            <![CDATA[Surma and Jake talk about whatever's going on in the world of web development.]]>
+        </description>
+        <itunes:subtitle>
+            <![CDATA[Where Surma and Jake occasionally talk web.]]>
+        </itunes:subtitle>
+        <itunes:type>episodic</itunes:type>
+        <atom10:link
+                xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feeds.feedburner.com/Http203Podcast" />
+        <feedburner:info uri="http203podcast" />
+        <atom10:link
+                xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" />
+        <item>
+            <title>How to avoid getting UTF'd by text encodings</title>
+            <itunes:title>How to avoid getting UTF'd by text encodings</itunes:title>
+            <pubDate>Fri, 08 May 2020 17:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[6ab1d691-18ba-4c2f-904e-653d62c3ebfa]]>
+            </guid>
+            <link>
+                <![CDATA[https://traffic.libsyn.com/secure/http203/HTT_P004.m4a]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/0/a/0/40a057340c51398b/HTTP_Podcast_Episodes_thumb_v2_1.png" />
+            <description>
+                <![CDATA[<p><span style="font-weight: 400;">- The Count from Sesame Street swearing →</span><a href="https://goo.gle/3ftsgqL"><span style= "font-weight: 400;">https://goo.gle/3ftsgqL</span></a><span style= "font-weight: 400;">(warning: silly/rude)</span></p><p><span style="font-weight: 400;">- Ofcom research into broadcast swearing →</span><a href="https://goo.gle/2A9xM1B"><span style= "font-weight: 400;">https://goo.gle/2A9xM1B</span></a><span style= "font-weight: 400;">(warning: lots of really bad language) (bigger warning: PDF)</span></p><p><span style="font-weight: 400;">- Banned word list read by a computer →</span><a href="https://goo.gle/2SNkgat"><span style= "font-weight: 400;">https://goo.gle/2SNkgat</span></a><span style= "font-weight: 400;">(warning: lots of really bad language)</span></p><p></p><p><span style="font-weight: 400;">- Beat saber stretches →</span><a href="https://goo.gle/2Ac4gZf"><span style= "font-weight: 400;">https://goo.gle/2Ac4gZf</span></a><span style= "font-weight: 400;"></span></p><p></p><p><span style="font-weight: 400;">- Remy's question about text encoding →</span><a href="https://goo.gle/3bftse1"><span style= "font-weight: 400;">https://goo.gle/3bftse1</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- TextEncoder →</span><a href= "https://goo.gle/2zlvBaE"><span style= "font-weight: 400;">https://goo.gle/2zlvBaE</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- TextDecoder →</span><a href= "https://goo.gle/35K5Wou"><span style= "font-weight: 400;">https://goo.gle/35K5Wou</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- Streaming versions →</span><a href="https://goo.gle/2Wh4qHn"><span style= "font-weight: 400;">https://goo.gle/2Wh4qHn</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- Josh's joke encoding PR →</span><a href="https://goo.gle/2YK2316"><span style= "font-weight: 400;">https://goo.gle/2YK2316</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- atob →</span><a href= "https://goo.gle/2YK2316"><span style= "font-weight: 400;">https://goo.gle/2YK2316</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- bota →</span><a href= "https://goo.gle/2YKEuoP"><span style= "font-weight: 400;">https://goo.gle/2YKEuoP</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- Binary strings in JS →</span><a href="https://goo.gle/3ch7R68"><span style= "font-weight: 400;">https://goo.gle/3ch7R68</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- readAsBinaryString in FileReader →</span><a href="https://goo.gle/2Wdnoyz"><span style= "font-weight: 400;">https://goo.gle/2Wdnoyz</span></a><span style= "font-weight: 400;"></span></p><p></p><p><span style="font-weight: 400;">- DOMContentLoaded →</span><a href="https://goo.gle/3fon4EF"><span style= "font-weight: 400;">https://goo.gle/3fon4EF</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- defer and IE bugs →</span><a href="https://goo.gle/2WfOntj"><span style= "font-weight: 400;">https://goo.gle/2WfOntj</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- DOM ready in jQuery →</span><a href="https://goo.gle/3cdvnRN"><span style= "font-weight: 400;">https://goo.gle/3cdvnRN</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- readyState →</span><a href= "https://goo.gle/2xJnHrf"><span style= "font-weight: 400;">https://goo.gle/2xJnHrf</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- doScroll trick →</span><a href="https://goo.gle/2WFuCtW"><span style= "font-weight: 400;">https://goo.gle/2WFuCtW</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">- "The end" →</span><a href= "https://goo.gle/3fw8CKz"><span style= "font-weight: 400;">https://goo.gle/3fw8CKz</span></a><span style= "font-weight: 400;"></span></p><p><br /><span style="font-weight: 400;">See</span><a href= "https://goo.gle/HTTP203Podcast"><span style= "font-weight: 400;">https://goo.gle/HTTP203Podcast</span></a><span style="font-weight: 400;">for other episodes.</span></p>]]>
+            </description>
+            <content:encoded>
+                <![CDATA[<p>- The Count from Sesame Street swearing → <a href="https://goo.gle/3ftsgqL">https://goo.gle/3ftsgqL</a> (warning: silly/rude)</p><p>- Ofcom research into broadcast swearing → <a href="https://goo.gle/2A9xM1B">https://goo.gle/2A9xM1B</a> (warning: lots of really bad language) (bigger warning: PDF)</p><p>- Banned word list read by a computer → <a href="https://goo.gle/2SNkgat">https://goo.gle/2SNkgat</a> (warning: lots of really bad language)</p><p></p><p>- Beat saber stretches → <a href="https://goo.gle/2Ac4gZf">https://goo.gle/2Ac4gZf</a></p><p></p><p>- Remy's question about text encoding → <a href="https://goo.gle/3bftse1">https://goo.gle/3bftse1</a></p><p>- TextEncoder → <a href= "https://goo.gle/2zlvBaE">https://goo.gle/2zlvBaE</a></p><p>- TextDecoder → <a href= "https://goo.gle/35K5Wou">https://goo.gle/35K5Wou</a></p><p>- Streaming versions → <a href="https://goo.gle/2Wh4qHn">https://goo.gle/2Wh4qHn</a></p><p>- Josh's joke encoding PR → <a href="https://goo.gle/2YK2316">https://goo.gle/2YK2316</a></p><p>- atob → <a href= "https://goo.gle/2YK2316">https://goo.gle/2YK2316</a></p><p>- bota → <a href= "https://goo.gle/2YKEuoP">https://goo.gle/2YKEuoP</a></p><p>- Binary strings in JS → <a href="https://goo.gle/3ch7R68">https://goo.gle/3ch7R68</a></p><p>- readAsBinaryString in FileReader → <a href="https://goo.gle/2Wdnoyz">https://goo.gle/2Wdnoyz</a></p><p></p><p>- DOMContentLoaded → <a href="https://goo.gle/3fon4EF">https://goo.gle/3fon4EF</a></p><p>- defer and IE bugs → <a href="https://goo.gle/2WfOntj">https://goo.gle/2WfOntj</a></p><p>- DOM ready in jQuery → <a href="https://goo.gle/3cdvnRN">https://goo.gle/3cdvnRN</a></p><p>- readyState → <a href= "https://goo.gle/2xJnHrf">https://goo.gle/2xJnHrf</a></p><p>- doScroll trick → <a href="https://goo.gle/2WFuCtW">https://goo.gle/2WFuCtW</a></p><p>- "The end" → <a href= "https://goo.gle/3fw8CKz">https://goo.gle/3fw8CKz</a></p><p> See <a href= "https://goo.gle/HTTP203Podcast">https://goo.gle/HTTP203Podcast</a> for other episodes.</p>]]>
+            </content:encoded>
+            <itunes:duration>01:01:00</itunes:duration>
+            <itunes:explicit>clean</itunes:explicit>
+            <itunes:keywords>web,ready,development,javascript,jquery,text,techpodcasts,encoding,chrome,developers,dom,streams,decoding,newpodcasts,googlepodcast,chromepodcast</itunes:keywords>
+            <itunes:subtitle>
+                <![CDATA[And how to be DOM-ready for anything.]]>
+            </itunes:subtitle>
+            <itunes:summary>- Remy's question about text encoding → https://goo.gle/3bftse1
+                - TextEncoder → https://goo.gle/2zlvBaE
+                - Josh's joke encoding PR → https://goo.gle/2YK2316
+                - Binary strings in JS → https://goo.gle/3ch7R68
+                - readAsBinaryString → https://goo.gle/2Wdnoyz
+                - defer and IE bugs → https://goo.gle/2WfOntj
+                - DOM ready in jQuery → https://goo.gle/3cdvnRN
+                - doScroll trick → https://goo.gle/2WFuCtW
+                - "The end" → https://goo.gle/3fw8CKz
+
+                See https://goo.gle/HTTP203Podcast for more
+            </itunes:summary>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Google</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/J9BgCRGmUTY/HTT_P004.m4a" length="24743513" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/HTT_P004.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Maths, hooks, and errors</title>
+            <itunes:title>Maths, hooks, and errors</itunes:title>
+            <pubDate>Thu, 30 Apr 2020 17:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[ea55363c-b447-4fc9-bc38-00a7ac5ca9d4]]>
+            </guid>
+            <link>
+                <![CDATA[https://traffic.libsyn.com/secure/http203/HTT_P003_mixdown.m4a]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/2/2/5/d/225db21cef86209d/HTTP_Podcast_Episodes_thumb.jpg" />
+            <description>
+                <![CDATA[<p><span style="font-weight: 400;">Jake injured himself playing games.</span></p><p><span style="font-weight: 400;">Jake also has a stupid cat.</span></p><p><span style="font-weight: 400;">By the way, skip to 22 mins if you don't care about all that.</span></p><p><span style="font-weight: 400;">Writing a Countdown solver →</span><a href="https://goo.gle/2SkHtk2"><span style= "font-weight: 400;">https://goo.gle/2SkHtk2</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Here's the game show →</span><a href="https://goo.gle/3bPo1DM"><span style= "font-weight: 400;">https://goo.gle/3bPo1DM</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Here's the C++ solution →</span><a href="https://goo.gle/2VRzoFP"><span style= "font-weight: 400;">https://goo.gle/2VRzoFP</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Jake's unappreciated audio blog post →</span><a href="https://goo.gle/2VNmOqZ"><span style= "font-weight: 400;">https://goo.gle/2VNmOqZ</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">HTM (JSX alternative) →</span><a href="https://goo.gle/3cYr9x7"><span style= "font-weight: 400;">https://goo.gle/3cYr9x7</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Preact hooks →</span><a href= "https://goo.gle/3aMP15p"><span style= "font-weight: 400;">https://goo.gle/3aMP15p</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">ComLink →</span><a href= "https://goo.gle/2VLcr6V"><span style= "font-weight: 400;">https://goo.gle/2VLcr6V</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Throwing non-errors.</span></p><p><span style="font-weight: 400;">Guide to promises →</span><a href="https://goo.gle/2VOuCc8"><span style= "font-weight: 400;">https://goo.gle/2VOuCc8</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Gotchas with typeOf.</span></p><p><span style="font-weight: 400;">isNaN vs Number.isNaN.</span></p><p></p><p><span style="font-weight: 400;">See</span><a href= "https://goo.gle/HTTP203Podcast"><span style= "font-weight: 400;">https://goo.gle/HTTP203Podcast</span></a><span style="font-weight: 400;">for other episodes.</span></p>]]>
+            </description>
+            <content:encoded>
+                <![CDATA[<p>Jake injured himself playing games.</p><p>Jake also has a stupid cat.</p><p>By the way, skip to 22 mins if you don't care about all that.</p><p>Writing a Countdown solver → <a href="https://goo.gle/2SkHtk2">https://goo.gle/2SkHtk2</a></p><p>Here's the game show → <a href="https://goo.gle/3bPo1DM">https://goo.gle/3bPo1DM</a></p><p>Here's the C++ solution → <a href="https://goo.gle/2VRzoFP">https://goo.gle/2VRzoFP</a></p><p>Jake's unappreciated audio blog post → <a href="https://goo.gle/2VNmOqZ">https://goo.gle/2VNmOqZ</a></p><p>HTM (JSX alternative) → <a href="https://goo.gle/3cYr9x7">https://goo.gle/3cYr9x7</a></p><p>Preact hooks → <a href= "https://goo.gle/3aMP15p">https://goo.gle/3aMP15p</a></p><p>ComLink → <a href= "https://goo.gle/2VLcr6V">https://goo.gle/2VLcr6V</a></p><p>Throwing non-errors.</p><p>Guide to promises → <a href="https://goo.gle/2VOuCc8">https://goo.gle/2VOuCc8</a></p><p>Gotchas with typeOf.</p><p>isNaN vs Number.isNaN.</p><p></p><p>See <a href= "https://goo.gle/HTTP203Podcast">https://goo.gle/HTTP203Podcast</a> for other episodes.</p>]]>
+            </content:encoded>
+            <itunes:duration>55:09</itunes:duration>
+            <itunes:explicit>clean</itunes:explicit>
+            <itunes:keywords>web,google,c,chrome,techpodcast,htm,comlink,googlepodcast,chromepodcast,chromereleases,writingacountdownsolver,preacthooks</itunes:keywords>
+            <itunes:subtitle>
+                <![CDATA[Plus cats, getting old, and Countdown]]>
+            </itunes:subtitle>
+            <itunes:summary>Jake has a stupid cat.
+                By the way, skip to 22 mins if you don't care about all that.
+                Writing a Countdown solver → https://goo.gle/2SkHtk2
+                Jake's unappreciated audio blog post → https://goo.gle/2VNmOqZ
+                HTM (JSX alternative) → https://goo.gle/3cYr9x7
+                Preact hooks → https://goo.gle/3aMP15p
+                ComLink → https://goo.gle/2VLcr6V
+                Guide to promises → https://goo.gle/2VOuCc8
+                Gotchas with typeOf.
+
+                See https://goo.gle/HTTP203Podcast for more detailed show notes, including links.</itunes:summary>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Google</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/Sd0tUFgzLw4/HTT_P003_mixdown.m4a" length="22359665" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/HTT_P003_mixdown.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Apps vs sites, binary data, and build times</title>
+            <itunes:title> Apps vs sites, binary data, and build times</itunes:title>
+            <pubDate>Wed, 15 Apr 2020 16:30:20 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[23c2cb66-5297-4934-8318-183514f1869a]]>
+            </guid>
+            <link>
+                <![CDATA[https://traffic.libsyn.com/secure/http203/apps-sites-build-times.m4a]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/5/6/f/1/56f172df7bbb1ba1/HTTP_Podcast_Episodes_thumb_v2_2.png" />
+            <description>
+                <![CDATA[<p><span style="font-weight: 400;">Phil and Jack from fishandscripts.com are still lingering around. We chat about:</span></p><p><span style="font-weight: 400;">Fustractions with punctuality.</span></p><p><span style="font-weight: 400;">Phil's time website →</span><a href="https://goo.gle/34Cb3pW"><span style= "font-weight: 400;">https://goo.gle/34Cb3pW</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Frances on naming PWAs →</span><a href="https://goo.gle/3cgkfTu"><span style= "font-weight: 400;">https://goo.gle/3cgkfTu</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Jen's new job.</span></p><p><span style="font-weight: 400;">Surma's WebXR experiment →</span><a href="https://goo.gle/3adpDp2"><span style= "font-weight: 400;">https://goo.gle/3adpDp2</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Transferring data between workers and pages.</span></p><p><span style="font-weight: 400;">The DataView API →</span><a href="https://goo.gle/2ydWhd0"><span style= "font-weight: 400;">https://goo.gle/2ydWhd0</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Buffer-backed objects →</span><a href="https://goo.gle/2REZitI"><span style= "font-weight: 400;">https://goo.gle/2REZitI</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">JavaScript proxies →</span><a href="https://goo.gle/2K6TaWT"><span style= "font-weight: 400;">https://goo.gle/2K6TaWT</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Mathias on JS internals, including holey arrays →</span><a href= "https://goo.gle/2RGzu0d"><span style= "font-weight: 400;">https://goo.gle/2RGzu0d</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">DX vs UX →</span><a href= "https://goo.gle/2yhm9EO"><span style= "font-weight: 400;">https://goo.gle/2yhm9EO</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Differences between dev and prod builds.</span></p><p><span style="font-weight: 400;">An epic quiz on HTTP status codes.</span></p><p><span style="font-weight: 400;">Desyncronised canvas →</span><a href="https://goo.gle/2yhm9EO"><span style= "font-weight: 400;">https://goo.gle/2yhm9EO</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">pointerrawupdate →</span><a href="https://goo.gle/3adk5Ln"><span style= "font-weight: 400;">https://goo.gle/3adk5Ln</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Jake's unloved pointer library →</span><a href="https://goo.gle/2XCUUPJ"><span style= "font-weight: 400;">https://goo.gle/2XCUUPJ</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">getCoalescedEvents →</span><a href="https://goo.gle/2XEf104"><span style= "font-weight: 400;">https://goo.gle/2XEf104</span></a><span style= "font-weight: 400;"></span></p><p></p><p><span style="font-weight: 400;">See</span><a href= "https://goo.gle/HTTP203Podcast"><span style= "font-weight: 400;">https://goo.gle/HTTP203Podcast</span></a><span style="font-weight: 400;">for other episodes.</span></p>]]>
+            </description>
+            <content:encoded>
+                <![CDATA[<p>Phil and Jack from fishandscripts.com are still lingering around. We chat about:</p><p>Fustractions with punctuality.</p><p>Phil's time website → <a href="https://goo.gle/34Cb3pW">https://goo.gle/34Cb3pW</a></p><p>Frances on naming PWAs → <a href="https://goo.gle/3cgkfTu">https://goo.gle/3cgkfTu</a></p><p>Jen's new job.</p><p>Surma's WebXR experiment → <a href="https://goo.gle/3adpDp2">https://goo.gle/3adpDp2</a></p><p>Transferring data between workers and pages.</p><p>The DataView API → <a href="https://goo.gle/2ydWhd0">https://goo.gle/2ydWhd0</a></p><p>Buffer-backed objects → <a href="https://goo.gle/2REZitI">https://goo.gle/2REZitI</a></p><p>JavaScript proxies → <a href="https://goo.gle/2K6TaWT">https://goo.gle/2K6TaWT</a></p><p>Mathias on JS internals, including holey arrays → <a href= "https://goo.gle/2RGzu0d">https://goo.gle/2RGzu0d</a></p><p>DX vs UX → <a href= "https://goo.gle/2yhm9EO">https://goo.gle/2yhm9EO</a></p><p>Differences between dev and prod builds.</p><p>An epic quiz on HTTP status codes.</p><p>Desyncronised canvas → <a href="https://goo.gle/2yhm9EO">https://goo.gle/2yhm9EO</a></p><p>pointerrawupdate → <a href="https://goo.gle/3adk5Ln">https://goo.gle/3adk5Ln</a></p><p>Jake's unloved pointer library → <a href="https://goo.gle/2XCUUPJ">https://goo.gle/2XCUUPJ</a></p><p>getCoalescedEvents → <a href="https://goo.gle/2XEf104">https://goo.gle/2XEf104</a></p><p></p><p>See <a href= "https://goo.gle/HTTP203Podcast">https://goo.gle/HTTP203Podcast</a> for other episodes.</p>]]>
+            </content:encoded>
+            <itunes:duration>01:15:30</itunes:duration>
+            <itunes:explicit>clean</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[ And an epic status code quiz]]>
+            </itunes:subtitle>
+            <itunes:summary>Phil &amp; Jack from fishandscripts.com are still lingering around.
+                We chat about:
+                Frances on naming PWAs → https://goo.gle/3cgkfTu
+                Surma's WebXR experiment → https://goo.gle/3adpDp2
+                Buffer-backed objects → https://goo.gle/2REZitI
+                Mathias on JS internals, including holey arrays → https://goo.gle/2RGzu0d
+                Desyncronised canvas → https://goo.gle/2yhm9EO
+                pointerrawupdate → https://goo.gle/3adk5Ln
+                getCoalescedEvents → https://goo.gle/2XEf104
+                See https://goo.gle/HTTP203Podcast for more detailed </itunes:summary>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Google</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/mVkaqGGxlt8/apps-sites-build-times.m4a" length="30803599" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/apps-sites-build-times.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Fish &amp; Scripts special!</title>
+            <itunes:title>Fish &amp; Scripts special!</itunes:title>
+            <pubDate>Thu, 09 Apr 2020 17:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[01e6b1a6-06f2-4ea7-84c1-2e7a93db963b]]>
+            </guid>
+            <link>
+                <![CDATA[https://traffic.libsyn.com/secure/http203/http203-does-fish-and-scripts.m4a]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/4/0/f/440fdecfbc101ff1/HTTP_Podcast_Episodes_thumb_v2.png" />
+            <description>
+                <![CDATA[<p><span style="font-weight: 400;">We join the</span><a href= "https://fishandscripts.com/"><span style= "font-weight: 400;">https://fishandscripts.com/</span></a><span style="font-weight: 400;">podcast and chat about:</span></p><p><span style="font-weight: 400;">Games we're playing to cope with lockdown:</span></p><p><span style="font-weight: 400;">Overcooked 2 →</span><a href= "https://goo.gle/39NeHOU"><span style= "font-weight: 400;">https://goo.gle/39NeHOU</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Snipperclips →</span><a href= "https://goo.gle/2x2GZYt"><span style= "font-weight: 400;">https://goo.gle/2x2GZYt</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Pikuniku →</span><a href= "https://goo.gle/2UTf7Pt"><span style= "font-weight: 400;">https://goo.gle/2UTf7Pt</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Play You Don’t Know Jack →</span><a href="https://goo.gle/34wVJv3"><span style= "font-weight: 400;">https://goo.gle/34wVJv3</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Knowledge is Power →</span><a href="https://goo.gle/39UiMk8"><span style= "font-weight: 400;">https://goo.gle/39UiMk8</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">It’s Quiz Time →</span><a href= "https://goo.gle/3e7N7iA"><span style= "font-weight: 400;">https://goo.gle/3e7N7iA</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">And Surma plays Zelda fast →</span><a href="https://goo.gle/2Rsoi7w"><span style= "font-weight: 400;">https://goo.gle/2Rsoi7w</span></a><span style= "font-weight: 400;"></span></p><p></p><p><span style="font-weight: 400;">Jake buys some chocolate</span></p><p><span style="font-weight: 400;">Phil joins a choir</span></p><p><span style="font-weight: 400;">requestStorageAccess →</span><a href="https://goo.gle/2yNFKwR"><span style= "font-weight: 400;">https://goo.gle/2yNFKwR</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">The SameSite cookie change is rolled back →</span><a href="https://goo.gle/2UTYpzF"><span style= "font-weight: 400;">https://goo.gle/2UTYpzF</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">Chrome releases are resumed →</span><a href="https://goo.gle/3e8Exjw"><span style= "font-weight: 400;">https://goo.gle/3e8Exjw</span></a><span style= "font-weight: 400;"></span></p><p><span style="font-weight: 400;">And we give Phil & Jack our quiz: NOT-or-NOT </span></p><p></p><p><span style="font-weight: 400;">See</span><a href= "https://goo.gle/HTTP203Podcast"><span style= "font-weight: 400;">https://goo.gle/HTTP203Podcast</span></a><span style="font-weight: 400;">for more detailed show notes, including links.</span></p>]]>
+            </description>
+            <content:encoded>
+                <![CDATA[<p>We join the <a href= "https://fishandscripts.com/">https://fishandscripts.com/</a> podcast and chat about:</p><p>Games we're playing to cope with lockdown:</p><p>Overcooked 2 → <a href= "https://goo.gle/39NeHOU">https://goo.gle/39NeHOU</a></p><p>Snipperclips → <a href= "https://goo.gle/2x2GZYt">https://goo.gle/2x2GZYt</a></p><p>Pikuniku → <a href= "https://goo.gle/2UTf7Pt">https://goo.gle/2UTf7Pt</a></p><p>Play You Don’t Know Jack → <a href="https://goo.gle/34wVJv3">https://goo.gle/34wVJv3</a></p><p>Knowledge is Power → <a href="https://goo.gle/39UiMk8">https://goo.gle/39UiMk8</a></p><p>It’s Quiz Time → <a href= "https://goo.gle/3e7N7iA">https://goo.gle/3e7N7iA</a></p><p>And Surma plays Zelda fast → <a href="https://goo.gle/2Rsoi7w">https://goo.gle/2Rsoi7w</a></p><p></p><p>Jake buys some chocolate</p><p>Phil joins a choir</p><p>requestStorageAccess → <a href="https://goo.gle/2yNFKwR">https://goo.gle/2yNFKwR</a></p><p>The SameSite cookie change is rolled back → <a href="https://goo.gle/2UTYpzF">https://goo.gle/2UTYpzF</a></p><p>Chrome releases are resumed → <a href="https://goo.gle/3e8Exjw">https://goo.gle/3e8Exjw</a></p><p>And we give Phil & Jack our quiz: NOT-or-NOT </p><p></p><p>See <a href= "https://goo.gle/HTTP203Podcast">https://goo.gle/HTTP203Podcast</a> for more detailed show notes, including links.</p>]]>
+            </content:encoded>
+            <itunes:duration>01:17:30</itunes:duration>
+            <itunes:explicit>clean</itunes:explicit>
+            <itunes:keywords>web,google,gaming,chrome,zelda,techpodcast,googlepodcast,chromepodcast,storagedevelopment,quizgames,requeststorageaccess,samesitecookiechange,chromereleases</itunes:keywords>
+            <itunes:subtitle>
+                <![CDATA[Games, storage, & quizzes]]>
+            </itunes:subtitle>
+            <itunes:summary>We join the https://fishandscripts.com/ podcast and chat about:
+
+                We go through the games we're playing to cope with lockdown.
+                Surma plays Zelda fast → https://goo.gle/2UQsv70
+                requestStorageAccess → https://goo.gle/2yNFKwR
+                The SameSite cookie change is rolled back → https://goo.gle/2UTYpzF
+                Chrome releases are resumed → https://goo.gle/3e8Exjw
+
+                See https://goo.gle/HTTP203Podcast for more detailed show notes, including links.
+            </itunes:summary>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Google</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/cNIsA1U4seQ/http203-does-fish-and-scripts.m4a" length="41127053" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/http203-does-fish-and-scripts.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>VR, API design, and coping with lockdown</title>
+            <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/vr-api-design-lockdown]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/vr-api-design-lockdown]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/0/e/0/d/0e0d08169169948b/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also native filesystem, listener questions, and TMI.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also native filesystem, listener questions, and TMI.]]>
+            </content:encoded>
+            <itunes:duration>01:13:22</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also native filesystem, listener questions, and TMI.]]>
+            </itunes:subtitle>
+            <itunes:episode>40</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/4p2LFhA0afQ/episode-29.m4a" length="30000087" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-29.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Social distance, SSR patterns, and bedtime routines</title>
+            <pubDate>Wed, 18 Mar 2020 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/social-distance-ssr-patterns-and-bedtime-routines]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/social-distance-ssr-patterns-and-bedtime-routines]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/b/1/6/5/b1654a0b6c7d22f2/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also performance, progressive enhancement, and hand-drying.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also performance, progressive enhancement, and hand-drying.]]>
+            </content:encoded>
+            <itunes:duration>47:25</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also performance, progressive enhancement, and hand-drying.]]>
+            </itunes:subtitle>
+            <itunes:episode>39</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/gZ1Q04JvGRQ/episode-28.m4a" length="26956114" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-28.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Observables, board games, and 'Artechulate'</title>
+            <pubDate>Wed, 22 Jan 2020 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/observables-board-games-and-artechulate]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/observables-board-games-and-artechulate]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/7/f/f/c/7ffc3ad0c3636df5/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also, top fashion and career advice.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also, top fashion and career advice.]]>
+            </content:encoded>
+            <itunes:duration>01:00:27</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also, top fashion and career advice.]]>
+            </itunes:subtitle>
+            <itunes:episode>38</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/du90Mu_yd7c/episode-27.m4a" length="34218105" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-27.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>It takes two to tangent</title>
+            <pubDate>Fri, 20 Dec 2019 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/takes-two-to-tangent]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/takes-two-to-tangent]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/8/d/f/7/8df730ee12ee72b0/surjiko-small.jpg" />
+            <description>
+                <![CDATA[Also cache invalidation, server rendering, and learning curves.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also cache invalidation, server rendering, and learning curves.]]>
+            </content:encoded>
+            <itunes:duration>01:07:04</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also cache invalidation, server rendering, and learning curves.]]>
+            </itunes:subtitle>
+            <itunes:episode>37</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/07XxjEmcDPY/episode-26.m4a" length="37146673" type="audio/mp4" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-26.m4a?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Stability, TODOs, and the HTTP 203 census</title>
+            <pubDate>Fri, 18 Oct 2019 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/stability-todos-and-census]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/stability-todos-and-census]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/9/1/f/a/91fa99fdd12c8e5f/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also how do you do TODO?]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also how do you do TODO?]]>
+            </content:encoded>
+            <itunes:duration>01:00:29</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also how do you do TODO?]]>
+            </itunes:subtitle>
+            <itunes:episode>36</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/ewTTX_7HbXY/episode-25.mp3" length="38066136" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-25.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>The block-drop-n-swap</title>
+            <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/block-drop-n-swap]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/block-drop-n-swap]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/0/c/8/3/0c83a62dcba351f8/with-mariko.jpg" />
+            <description>
+                <![CDATA[Also, font loading, feature phones, and webpack vs Rollup.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also, font loading, feature phones, and webpack vs Rollup.]]>
+            </content:encoded>
+            <itunes:duration>01:15:46</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also, font loading, feature phones, and webpack vs Rollup.]]>
+            </itunes:subtitle>
+            <itunes:episode>35</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/lzb8PzybVt8/episode-24.mp3" length="37503124" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-24.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Chatting Edge &amp; CSS with Greg Whitworth</title>
+            <pubDate>Wed, 22 May 2019 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/edge-n-css-with-greg]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/edge-n-css-with-greg]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/6/8/5/a/685a75ebcfe081e8/with-greg.jpg" />
+            <description>
+                <![CDATA[Also, PROXX, forms, and auto.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also, PROXX, forms, and auto.]]>
+            </content:encoded>
+            <itunes:duration>47:14</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also, PROXX, forms, and auto.]]>
+            </itunes:subtitle>
+            <itunes:episode>34</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/Slv12bs1iOY/episode-23.mp3" length="34405700" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-23.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Performance, trailers, and dentistry mishaps</title>
+            <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/performance-trailers-dentistry]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/performance-trailers-dentistry]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/9/6/d/7/96d7808e806ef07f/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also camping, compositing, and building games.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also camping, compositing, and building games.]]>
+            </content:encoded>
+            <itunes:duration>01:05:40</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also camping, compositing, and building games.]]>
+            </itunes:subtitle>
+            <itunes:episode>33</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/iRcsUNfi5mA/episode-22.mp3" length="33946299" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-22.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Rotating an image… TO THE EXTREME</title>
+            <pubDate>Thu, 21 Feb 2019 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/rotating-an-image-to-the-extreme]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/rotating-an-image-to-the-extreme]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/2/9/9/1/299120b58e91da9b/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also clip-path, bread, and urinals again.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also clip-path, bread, and urinals again.]]>
+            </content:encoded>
+            <itunes:duration>01:07:53</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also clip-path, bread, and urinals again.]]>
+            </itunes:subtitle>
+            <itunes:episode>32</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/i1Sm-br7Rjc/episode-21.mp3" length="35766024" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-21.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>When laptops go bad… ON STAGE</title>
+            <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/when-laptops-go-bad-on-stage]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/when-laptops-go-bad-on-stage]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/d/c/0/3/dc03975b8848622c/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also share target, shadow parts, and streams.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also share target, shadow parts, and streams.]]>
+            </content:encoded>
+            <itunes:duration>01:18:21</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also share target, shadow parts, and streams.]]>
+            </itunes:subtitle>
+            <itunes:episode>31</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/5oFRYbkC0AM/episode-20.mp3" length="42579108" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-20.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Stress, canvas, and jam</title>
+            <pubDate>Thu, 08 Nov 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/stress-canvas-jam]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/stress-canvas-jam]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/b/4/c/f/b4cf36a89236c7cb/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also zombie optimizations and alphabets]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also zombie optimizations and alphabets]]>
+            </content:encoded>
+            <itunes:duration>56:32</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also zombie optimizations and alphabets]]>
+            </itunes:subtitle>
+            <itunes:episode>30</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/X-9DLk0gqqc/episode-19.mp3" length="34864351" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-19.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Transforming, transpiling, and urinaling</title>
+            <pubDate>Wed, 12 Sep 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/transform-transpile-urinal]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/transform-transpile-urinal]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/f/a/e/7/fae7aa851ec6c205/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also page-lifecycle, WASM, and massages.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also page-lifecycle, WASM, and massages.]]>
+            </content:encoded>
+            <itunes:duration>59:00</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also page-lifecycle, WASM, and massages.]]>
+            </itunes:subtitle>
+            <itunes:episode>29</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/DzWzBPRyHpc/episode-18.mp3" length="30291090" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-18.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>CORB, BroadcastChannel, and the resting Switch face</title>
+            <pubDate>Wed, 08 Aug 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/corb-cast-switch-face]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/corb-cast-switch-face]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/6/d/f/8/6df8c67c679d500b/jake-in-pain.jpg" />
+            <description>
+                <![CDATA[Also spices, screen-touchers, and lasers.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also spices, screen-touchers, and lasers.]]>
+            </content:encoded>
+            <itunes:duration>33:07</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also spices, screen-touchers, and lasers.]]>
+            </itunes:subtitle>
+            <itunes:episode>28</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/qxch3bc46Yg/episode-17.mp3" length="20954289" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-17.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Vinamrata Singal and Eric Bidelman</title>
+            <pubDate>Thu, 02 Aug 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-v-eric]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-v-eric]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/e/2/1/4e2190141f835d42/io.jpg" />
+            <description>
+                <![CDATA[Lighthouse and automation.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Lighthouse and automation.]]>
+            </content:encoded>
+            <itunes:duration>18:18</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Lighthouse and automation.]]>
+            </itunes:subtitle>
+            <itunes:episode>27</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/R2X6YT9v7Gw/io-2018-v-eric.mp3" length="11299504" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-v-eric.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Sathya Gunasekaran and Mathias Bynens</title>
+            <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-sathya-mathias]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-sathya-mathias]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/3/4/7/2/3472c34f982d05ae/io.jpg" />
+            <description>
+                <![CDATA[Exciting things appearing in V8.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Exciting things appearing in V8.]]>
+            </content:encoded>
+            <itunes:duration>22:06</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Exciting things appearing in V8.]]>
+            </itunes:subtitle>
+            <itunes:episode>26</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/evkSNcNqcsY/io-2018-sathya-mathias.mp3" length="14526892" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-sathya-mathias.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Martin Splitt</title>
+            <pubDate>Tue, 24 Jul 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-martin]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-martin]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/b/7/6/5/b765ddf8740b77fb/io.jpg" />
+            <description>
+                <![CDATA[Making search and JavaScript better friends.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Making search and JavaScript better friends.]]>
+            </content:encoded>
+            <itunes:duration>16:52</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Making search and JavaScript better friends.]]>
+            </itunes:subtitle>
+            <itunes:episode>25</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/oQRBe1yKWgI/io-2018-martin.mp3" length="11353758" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-martin.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Emily Schechter and Chris Palmer</title>
+            <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-emily-chris]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-emily-chris]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/8/4/1/c/841cd14c0fa64afc/io.jpg" />
+            <description>
+                <![CDATA[Making Chrome secure.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Making Chrome secure.]]>
+            </content:encoded>
+            <itunes:duration>14:41</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Making Chrome secure.]]>
+            </itunes:subtitle>
+            <itunes:episode>24</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/DxW_ivoe9Zg/io-2018-emily-chris.mp3" length="10935407" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-emily-chris.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Paul Irish and Jason Miller</title>
+            <pubDate>Wed, 11 Jul 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-pirish-jason]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-pirish-jason]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/3/2/6/2/3262358221e6e993/io.jpg" />
+            <description>
+                <![CDATA[What's new in DevTools.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[What's new in DevTools.]]>
+            </content:encoded>
+            <itunes:duration>19:14</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[What's new in DevTools.]]>
+            </itunes:subtitle>
+            <itunes:episode>23</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/Z03n-lcafic/io-2018-pirish-jason.mp3" length="13955370" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-pirish-jason.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Ewa Gasperowicz</title>
+            <pubDate>Tue, 19 Jun 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-ewa]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-ewa]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/5/5/7/8/55782eefd41337ca/io.jpg" />
+            <description>
+                <![CDATA[Getting performance right.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Getting performance right.]]>
+            </content:encoded>
+            <itunes:duration>15:47</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Getting performance right.]]>
+            </itunes:subtitle>
+            <itunes:episode>22</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/Rc5WVja57AQ/io-2018-ewa.mp3" length="10325312" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-ewa.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Darin Fisher</title>
+            <pubDate>Wed, 13 Jun 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-darin]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-darin]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/c/5/4/7/c547a5d2b05fbcf9/io.jpg" />
+            <description>
+                <![CDATA[How Chrome began.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[How Chrome began.]]>
+            </content:encoded>
+            <itunes:duration>13:30</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[How Chrome began.]]>
+            </itunes:subtitle>
+            <itunes:episode>21</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/1mPJ70O6PzY/io-2018-darin.mp3" length="9182669" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-darin.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Mariko Kosaka</title>
+            <pubDate>Wed, 06 Jun 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-mariko]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-mariko]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/2/a/1/3/2a13b3f083df5002/io-mariko.jpg" />
+            <description>
+                <![CDATA[How we got started on the web.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[How we got started on the web.]]>
+            </content:encoded>
+            <itunes:duration>22:14</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[How we got started on the web.]]>
+            </itunes:subtitle>
+            <itunes:episode>20</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/cDvnJyA7TI4/io-2018-mariko.mp3" length="13321494" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-mariko.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Rob "the bobdod" Dodson</title>
+            <pubDate>Tue, 29 May 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-bobdod]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-bobdod]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/f/f/c/b/ffcb3bee8c7e0693/io.jpg" />
+            <description>
+                <![CDATA[Shipping new a11y features.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Shipping new a11y features.]]>
+            </content:encoded>
+            <itunes:duration>14:52</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Shipping new a11y features.]]>
+            </itunes:subtitle>
+            <itunes:episode>19</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/W1KhU5rd2tA/io-2018-bobdod.mp3" length="9769758" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-bobdod.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Monica Dinculescu</title>
+            <pubDate>Wed, 23 May 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-monica]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-monica]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/a/6/6/7/a667452ba24d2bfc/io.jpg" />
+            <description>
+                <![CDATA[Informative mouth-words.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Informative mouth-words.]]>
+            </content:encoded>
+            <itunes:duration>15:34</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Informative mouth-words.]]>
+            </itunes:subtitle>
+            <itunes:episode>18</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/GPTfNTStK_Q/io-2018-monica.mp3" length="9936582" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-monica.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>I/O chat with Dion Almaer &amp; Ben Galbraith</title>
+            <pubDate>Mon, 21 May 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-ben-dion]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/io-chats-ben-dion]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/6/2/e/2/62e2ba376c7c40cf/io.jpg" />
+            <description>
+                <![CDATA[The state of the union of the web.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[The state of the union of the web.]]>
+            </content:encoded>
+            <itunes:duration>29:02</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[The state of the union of the web.]]>
+            </itunes:subtitle>
+            <itunes:episode>17</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/Sv4hQofqEsY/io-2018-ben-dion.mp3" length="17730438" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/io-2018-ben-dion.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Smooshes, WASMs, and conversational call stacks</title>
+            <pubDate>Tue, 17 Apr 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/smooshy-wasm-stacks]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/smooshy-wasm-stacks]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/a/d/b/8/adb80249aef69ee9/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also quizzes, privilege, and screen readers.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also quizzes, privilege, and screen readers.]]>
+            </content:encoded>
+            <itunes:duration>52:43</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also quizzes, privilege, and screen readers.]]>
+            </itunes:subtitle>
+            <itunes:episode>16</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/B19Q6qaGVVs/episode-16.mp3" length="32144556" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-16.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Cooties, symbols, and shaders</title>
+            <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/cooties-symbols-and-shaders]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/cooties-symbols-and-shaders]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/b/f/e/7/bfe78b827f52fd80/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also webpack + workers, observables, and resize observers.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also webpack + workers, observables, and resize observers.]]>
+            </content:encoded>
+            <itunes:duration>58:39</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also webpack + workers, observables, and resize observers.]]>
+            </itunes:subtitle>
+            <itunes:episode>15</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/yaiArGf6HMw/episode-15.mp3" length="44675820" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-15.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>EventTarget, imports, and nudists</title>
+            <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/eventtarget-imports-and-nudists]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/eventtarget-imports-and-nudists]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/9/5/c/495c0877360fd66a/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Also 120hz screens, JSON vs HTML, and a fox.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Also 120hz screens, JSON vs HTML, and a fox.]]>
+            </content:encoded>
+            <itunes:duration>50:15</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Also 120hz screens, JSON vs HTML, and a fox.]]>
+            </itunes:subtitle>
+            <itunes:episode>14</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/zY7H6-MQYtw/episode-14.mp3" length="34417480" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-14.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Twelve things for 2018</title>
+            <pubDate>Thu, 14 Dec 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/twelve-things-for-2018]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/twelve-things-for-2018]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/7/b/3/6/7b3622857e1edb15/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[With a limit of two minutes per topic.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[With a limit of two minutes per topic.]]>
+            </content:encoded>
+            <itunes:duration>25:27</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[With a limit of two minutes per topic.]]>
+            </itunes:subtitle>
+            <itunes:episode>13</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/_m_nbmnP4cI/episode-13.mp3" length="27846941" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-13.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>WebRTC again, and about:blank weirdness</title>
+            <pubDate>Fri, 08 Dec 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/webrtc-again-and-about-blank]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/webrtc-again-and-about-blank]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/9/5/b/f/95bf30cd99e801eb/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[WebRTC again, and about:blank weirdness.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[WebRTC again, and about:blank weirdness.]]>
+            </content:encoded>
+            <itunes:duration>16:44</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[WebRTC again, and about:blank weirdness.]]>
+            </itunes:subtitle>
+            <itunes:episode>12</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/xojX_3PvDRw/episode-12.mp3" length="16481061" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-12.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Web-whispers and sleepy thoughts</title>
+            <pubDate>Wed, 22 Nov 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/web-whispers-and-sleepy-thoughts]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/web-whispers-and-sleepy-thoughts]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/2/f/8/3/2f8328552cd8b8db/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Iframes, WeakMaps, and WebRTC.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Iframes, WeakMaps, and WebRTC.]]>
+            </content:encoded>
+            <itunes:duration>51:48</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Iframes, WeakMaps, and WebRTC.]]>
+            </itunes:subtitle>
+            <itunes:episode>11</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/CO19Z89T0Xs/episode-11.mp3" length="74778804" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-11.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Wet Nose Cough</title>
+            <pubDate>Fri, 06 Oct 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/wet-nose-cough]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/wet-nose-cough]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/3/8/5/c/385c701ac79b5ca3/surma-and-jake-2.jpg" />
+            <description>
+                <![CDATA[Viewports and message ports.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Viewports and message ports.]]>
+            </content:encoded>
+            <itunes:duration>01:02:03</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Viewports and message ports.]]>
+            </itunes:subtitle>
+            <itunes:episode>10</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/jrj4AVqrZxE/episode-10.mp3" length="66766005" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-10.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>A is for Effort</title>
+            <pubDate>Wed, 06 Sep 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/a-is-for-effort]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/a-is-for-effort]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/2/8/d/428d23ad73c7da22/surma-and-jake.jpg" />
+            <description>
+                <![CDATA[Alarms, upcoming CSS stuff, impostor syndrome, and the death of Flash.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Alarms, upcoming CSS stuff, impostor syndrome, and the death of Flash.]]>
+            </content:encoded>
+            <itunes:duration>01:04:24</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Alarms, upcoming CSS stuff, impostor syndrome, and the death of Flash.]]>
+            </itunes:subtitle>
+            <itunes:episode>9</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/fzgo8at3AUw/episode-9.mp3" length="69925907" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-9.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Slippers and chips</title>
+            <pubDate>Fri, 28 Jul 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-slippers-and-chips]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-slippers-and-chips]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/9/0/e/b/90ebbe5dd0254df5/http203-episode-5-art.jpg" />
+            <description>
+                <![CDATA[Custom elements, matrices, TypeScript, and omg Paul is leaving]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Custom elements, matrices, TypeScript, and omg Paul is leaving]]>
+            </content:encoded>
+            <itunes:duration>01:07:29</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Custom elements, matrices, TypeScript, and omg Paul is leaving]]>
+            </itunes:subtitle>
+            <itunes:episode>8</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/HPJS9mcWi6w/episode-8.0.1.mp3" length="79889567" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-8.0.1.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Quizzing, animating, and canceling</title>
+            <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-quizzing-animating-and-canceling]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-quizzing-animating-and-canceling]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/3/8/2/9/382985fd41302d1a/http203-episode-5-art.jpg" />
+            <description>
+                <![CDATA[Jake is worse at quizzes than Paul.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Jake is worse at quizzes than Paul.]]>
+            </content:encoded>
+            <itunes:duration>47:40</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Jake is worse at quizzes than Paul.]]>
+            </itunes:subtitle>
+            <itunes:episode>7</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/XWF73Qjzp1I/episode-7.mp3" length="68450844" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-7.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Legs, Wasps, and Eventually Some Web Stuff.</title>
+            <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-legs-wasps-and-web-stuff]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-legs-wasps-and-web-stuff]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/7/5/7/0/757019e58cdfe59b/http203-episode-5-art.jpg" />
+            <description>
+                <![CDATA[Paul's been booting frameworks, and unfortunately Jake connected his brain to Twitter]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Paul's been booting frameworks, and unfortunately Jake connected his brain to Twitter]]>
+            </content:encoded>
+            <itunes:duration>45:43</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Paul's been booting frameworks, and unfortunately Jake connected his brain to Twitter.]]>
+            </itunes:subtitle>
+            <itunes:episode>6</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/rIvrUtUVbuA/episode-6.mp3" length="55572138" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-6.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Springy CSS, Storage, and Bisecting.</title>
+            <pubDate>Sun, 03 Jul 2016 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-springy-css-storage-and-bisecting]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-springy-css-storage-and-bisecting]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/7/f/1/9/7f191637daa0f797/http203-episode-5-art.jpg" />
+            <description>
+                <![CDATA[Paul has been playing with springy animations in the Safari Tech Preview, and Jake loves pubs that are also... windmills?]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Paul has been playing with springy animations in the Safari Tech Preview, and Jake loves pubs that are also... windmills?]]>
+            </content:encoded>
+            <itunes:duration>59:57</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Paul and Jake talk about physics-based animation, asking the browser for permanent storage space, and how to find where a Chrome bug was created.]]>
+            </itunes:subtitle>
+            <itunes:episode>5</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/EclRUoLH9Hk/epsiode-5.mp3" length="85018132" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/epsiode-5.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Promises, Mistakes, and Door Handles</title>
+            <pubDate>Wed, 24 Feb 2016 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-promises-mistakes-and-door-handles]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-promises-mistakes-and-door-handles]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/0/e/0/6/0e06f5c61954cfa2/http203-episode-4-art.jpg" />
+            <description>
+                <![CDATA["Jake's discovered display: contents, while Paul is concerned about people microbenchmarking ES2015 features."]]>
+            </description>
+            <content:encoded>
+                <![CDATA["Jake's discovered display: contents, while Paul is concerned about people microbenchmarking ES2015 features."]]>
+            </content:encoded>
+            <itunes:duration>52:47</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Paul and Jake talk about how to Promisify Node, the sins of CSS, and how hard it can be to find a door handle.]]>
+            </itunes:subtitle>
+            <itunes:episode>4</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/gQVKWUJHyHI/episode-4.mp3" length="63577518" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-4.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Poetry and Delegated Event Listeners</title>
+            <pubDate>Sat, 24 Oct 2015 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-poetry-and-delegated-event-listeners]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-poetry-and-delegated-event-listeners]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/4/b/7/8/4b788941f1f19d8f/http203-episode-3-art.jpg" />
+            <description>
+                <![CDATA[Jake brings his A+ poetry game, and Paul muses over the performance implications of event delegation.]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Jake brings his A+ poetry game, and Paul muses over the performance implications of event delegation.]]>
+            </content:encoded>
+            <itunes:duration>32:30</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Paul and Jake talk about poetry, event listeners, and content that jumps around your screen.]]>
+            </itunes:subtitle>
+            <itunes:episode>3</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/PA5GX8IR_9g/episode-3.mp3" length="29840530" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-3.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>CORS, Forced Layouts, and Raptor Kebab Shops.</title>
+            <pubDate>Tue, 06 Oct 2015 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-cors-forced-layouts-and-raptor-kebab-shops]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-cors-forced-layouts-and-raptor-kebab-shops]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/e/c/0/1/ec0185450785660d/http203-episode-2-art.jpg" />
+            <description>
+                <![CDATA[Why does nobody seem to include CORS headers on their files? And can Paul answer Jake's dreaded CORS pre-flight quiz?]]>
+            </description>
+            <content:encoded>
+                <![CDATA[Why does nobody seem to include CORS headers on their files? And can Paul answer Jake's dreaded CORS pre-flight quiz?]]>
+            </content:encoded>
+            <itunes:duration>30:37</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Paul and Jake talk about CORS, Layout, and which of them has the evolutionary advantage.]]>
+            </itunes:subtitle>
+            <itunes:episode>2</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/9Ao20_WqDus/episode-2.mp3" length="29803546" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-2.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+        <item>
+            <title>Making Burgers and Maintainable Code</title>
+            <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+            <guid isPermaLink="false">
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-making-burgers-and-maintainable-code]]>
+            </guid>
+            <link>
+                <![CDATA[https://developers.google.com/web/shows/http203/podcast/http-203-making-burgers-and-maintainable-code]]>
+            </link>
+            <itunes:image href="https://ssl-static.libsyn.com/p/assets/f/e/a/3/fea3544101867d1b/http203-episode-1-art.jpg" />
+            <description>
+                <![CDATA[How can writing code be like making a burger? Turns out, by the power of weird segues, it can!]]>
+            </description>
+            <content:encoded>
+                <![CDATA[How can writing code be like making a burger? Turns out, by the power of weird segues, it can!]]>
+            </content:encoded>
+            <itunes:duration>30:14</itunes:duration>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:keywords />
+            <itunes:subtitle>
+                <![CDATA[Paul and Jake talk about making burgers and maintainable code.]]>
+            </itunes:subtitle>
+            <itunes:episode>1</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <itunes:author>Surma &amp; Jake</itunes:author>
+            <enclosure url="http://feedproxy.google.com/~r/Http203Podcast/~5/MX1g8-DcQWc/episode-1.mp3" length="31517231" type="audio/mpeg" />
+            <feedburner:origEnclosureLink>https://traffic.libsyn.com/secure/http203/episode-1.mp3?dest-id=1969313</feedburner:origEnclosureLink>
+        </item>
+    </channel>
+</rss>

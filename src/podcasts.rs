@@ -61,6 +61,7 @@ impl<'a> Podcasts<'a> {
             )
             .open()?;
 
+            println!("Adding podcasts...");
             return self.add(&add_values, reader_file, writer_file);
         }
 
@@ -126,7 +127,6 @@ impl<'a> Podcasts<'a> {
             })
             .collect();
 
-        let mut hasher = DefaultHasher::new();
         let podcasts: Vec<Podcast> = web::Web::new()
             .get(&urls)
             .iter()
@@ -143,7 +143,8 @@ impl<'a> Podcasts<'a> {
                     let podcast_title = rss_channel.title().to_string();
                     let podcast_url = rss_channel.link().to_string();
                     let rss_url = url.to_string();
-                    url.hash(&mut hasher);
+                    let mut hasher = DefaultHasher::new();
+                    rss_url.hash(&mut hasher);
 
                     Some(Podcast {
                         id: hasher.finish(),
@@ -212,5 +213,283 @@ impl<'a> Podcasts<'a> {
         }
 
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::Config;
+    use clap::{App, Arg};
+    use std::path::PathBuf;
+
+    fn create_config() -> Config {
+        let app_directory = "/Users/dmitryshur/.podcasts";
+        let download_directory = "/Users/dmitryshur/.podcasts/downloads";
+
+        Config {
+            app_directory: PathBuf::from(app_directory),
+            download_directory: PathBuf::from(download_directory),
+        }
+    }
+
+    fn create_app() -> App<'static> {
+        App::new("pcasts").subcommand(
+            App::new("podcasts")
+                .arg(
+                    Arg::with_name("list")
+                        .about("Show a list of previously added RSS feeds")
+                        .short('l')
+                        .long("--list")
+                        .conflicts_with_all(&["add", "remove"]),
+                )
+                .arg(
+                    Arg::with_name("add")
+                        .about("Add new RSS feed")
+                        .short('a')
+                        .long("--add")
+                        .takes_value(true)
+                        .multiple(true)
+                        .conflicts_with_all(&["list", "remove"]),
+                )
+                .arg(
+                    Arg::with_name("remove")
+                        .about("Remove an existing RSS feed")
+                        .short('r')
+                        .long("--remove")
+                        .takes_value(true)
+                        .multiple(true)
+                        .conflicts_with_all(&["list", "add"]),
+                ),
+        )
+    }
+
+    #[test]
+    fn podcasts_add_single() {
+        let args = create_app().get_matches_from(vec![
+            "pcasts",
+            "podcasts",
+            "--add",
+            "http://feeds.feedburner.com/Http203Podcast",
+        ]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        // We pass an empty reader, so the headers line should be added
+        let input = String::new();
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let expected_output = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+"###;
+
+        podcasts
+            .add(&podcast_matches.values_of("add").unwrap(), input, &mut output)
+            .expect("Can't add podcast");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap(), expected_output);
+    }
+
+    #[test]
+    fn podcasts_add_multiple() {
+        let args = create_app().get_matches_from(vec![
+            "pcasts",
+            "podcasts",
+            "--add",
+            "http://feeds.feedburner.com/Http203Podcast",
+            "--add",
+            "https://feed.syntax.fm/rss",
+        ]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        // We pass an empty reader, so the headers line should be added
+        let input = String::new();
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let expected_output = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats
+"###;
+
+        podcasts
+            .add(&podcast_matches.values_of("add").unwrap(), input, &mut output)
+            .expect("Can't add podcast");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap(), expected_output);
+    }
+
+    #[test]
+    fn podcasts_add_append() {
+        let args = create_app().get_matches_from(vec![
+            "pcasts",
+            "podcasts",
+            "--add",
+            "http://feeds.feedburner.com/Http203Podcast",
+        ]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        let input = r###"15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats"###;
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let expected_output = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+"###;
+
+        podcasts
+            .add(&podcast_matches.values_of("add").unwrap(), input, &mut output)
+            .expect("Can't add podcast");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap(), expected_output);
+    }
+
+    #[test]
+    fn podcasts_add_existing() {
+        let args = create_app().get_matches_from(vec![
+            "pcasts",
+            "podcasts",
+            "--add",
+            "http://feeds.feedburner.com/Http203Podcast",
+            "--add",
+            "https://feed.syntax.fm/rss",
+        ]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        let input = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats
+"###;
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let expected_output = "";
+
+        podcasts
+            .add(&podcast_matches.values_of("add").unwrap(), input, &mut output)
+            .expect("Can't add podcast");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap(), expected_output);
+    }
+
+    #[test]
+    fn podcasts_list() {
+        let args = create_app().get_matches_from(vec!["pcasts", "podcasts", "--list"]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        let input = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+"###;
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let podcast = Podcast {
+            id: 12772734294147401495,
+            url: "https://developers.google.com/web/shows/http203/podcast/".to_string(),
+            rss_url: "http://feeds.feedburner.com/Http203Podcast".to_string(),
+            title: "HTTP 203".to_string(),
+        };
+        let expected_output = podcast.to_string();
+
+        podcasts.list(input, &mut output).expect("Can't list podcasts");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap().trim(), expected_output.trim());
+    }
+
+    #[test]
+    fn podcasts_list_multiple() {
+        let args = create_app().get_matches_from(vec!["pcasts", "podcasts", "--list"]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        let input = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats
+"###;
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let first_podcast = Podcast {
+            id: 12772734294147401495,
+            url: "https://developers.google.com/web/shows/http203/podcast/".to_string(),
+            rss_url: "http://feeds.feedburner.com/Http203Podcast".to_string(),
+            title: "HTTP 203".to_string(),
+        };
+
+        let second_podcast = Podcast {
+            id: 15913066141282366353,
+            url: "https://syntax.fm".to_string(),
+            rss_url: "https://feed.syntax.fm/rss".to_string(),
+            title: "Syntax - Tasty Web Development Treats".to_string(),
+        };
+
+        let expected_output = format!("{}\n{}", first_podcast, second_podcast);
+
+        podcasts.list(input, &mut output).expect("Can't list podcasts");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap().trim(), expected_output.trim());
+    }
+
+    #[test]
+    fn podcasts_remove() {
+        let args = create_app().get_matches_from(vec![
+            "pcasts",
+            "podcasts",
+            "--remove",
+            "http://feeds.feedburner.com/Http203Podcast",
+        ]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        let input = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats
+"###;
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let expected_output = r###"id,url,rss_url,title
+15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats
+"###;
+
+        podcasts
+            .remove(&podcast_matches.values_of("remove").unwrap(), input, &mut output)
+            .expect("Can't remove podcast");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap(), expected_output);
+    }
+
+    #[test]
+    fn podcasts_remove_multiple() {
+        let args = create_app().get_matches_from(vec![
+            "pcasts",
+            "podcasts",
+            "--remove",
+            "http://feeds.feedburner.com/Http203Podcast",
+            "--remove",
+            "https://feed.syntax.fm/rss",
+        ]);
+        let podcast_matches = args.subcommand_matches("podcasts").expect("No podcasts matches");
+        let config = create_config();
+        let podcasts = Podcasts::new(&podcast_matches, &config);
+
+        let input = r###"id,url,rss_url,title
+12772734294147401495,https://developers.google.com/web/shows/http203/podcast/,http://feeds.feedburner.com/Http203Podcast,HTTP 203
+15913066141282366353,https://syntax.fm,https://feed.syntax.fm/rss,Syntax - Tasty Web Development Treats
+"###;
+        let input = input.as_bytes();
+        let mut output = Vec::new();
+        let expected_output = "";
+
+        podcasts
+            .remove(&podcast_matches.values_of("remove").unwrap(), input, &mut output)
+            .expect("Can't remove podcast");
+
+        assert_eq!(std::str::from_utf8(&output).unwrap(), expected_output);
     }
 }
