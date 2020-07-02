@@ -14,7 +14,7 @@ pub struct Web {
 impl Web {
     pub fn new() -> Self {
         let client = reqwest::blocking::Client::builder()
-            .timeout(std::time::Duration::from_secs(2))
+            .timeout(std::time::Duration::from_secs(5))
             .build()
             .expect("Can't create reqwest client");
         Self { client }
@@ -25,7 +25,20 @@ impl Web {
         let responses: Vec<(&str, reqwest::Result<Bytes>)> = urls
             .par_iter()
             .map(|url| {
-                let bytes = self.client.get(*url).send().and_then(|response| response.bytes());
+                println!("Fetching podcast {}", *url);
+
+                let bytes = self
+                    .client
+                    .get(*url)
+                    .send()
+                    .and_then(|response| response.bytes())
+                    .map_err(|err| {
+                        if err.is_timeout() {
+                            println!("Request timeout for {}", *url);
+                        }
+
+                        err
+                    });
                 (*url, bytes)
             })
             .collect();

@@ -61,7 +61,6 @@ impl<'a> Podcasts<'a> {
             )
             .open()?;
 
-            println!("Adding podcasts...");
             return self.add(&add_values, reader_file, writer_file);
         }
 
@@ -132,6 +131,8 @@ impl<'a> Podcasts<'a> {
             .iter()
             .filter_map(|(url, response)| match response {
                 Ok(res) => {
+                    println!("Adding podcast {}", url);
+
                     // Parse RSS feed
                     let rss_channel = rss::Channel::read_from(&res[..]);
                     if rss_channel.is_err() {
