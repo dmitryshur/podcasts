@@ -10,22 +10,12 @@ pub enum FileSystemErrors {
 
 impl fmt::Display for FileSystemErrors {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let mut message = String::new();
-
-        match self {
-            FileSystemErrors::CreateDirectory(error) => {
-                message = format!("Can't create directory. {}", error);
-            }
-            FileSystemErrors::CreateFile(error) => {
-                message = format!("Can't create file. {}", error);
-            }
-            FileSystemErrors::RenameError(error) => {
-                message = format!("Can't rename file, {}", error);
-            }
-            FileSystemErrors::RemoveError(error) => {
-                message = format!("Can't remove file. {}", error);
-            }
-        }
+        let message = match self {
+            FileSystemErrors::CreateDirectory(error) => format!("Can't create directory. {}", error),
+            FileSystemErrors::CreateFile(error) => format!("Can't create file. {}", error),
+            FileSystemErrors::RenameError(error) => format!("Can't rename file, {}", error),
+            FileSystemErrors::RemoveError(error) => format!("Can't remove file. {}", error),
+        };
 
         write!(f, "{}", message)
     }
