@@ -1,4 +1,4 @@
-use std::{fs, io, path::Path};
+use std::{fmt, fs, io, path::Path};
 
 #[derive(Debug)]
 pub enum FileSystemErrors {
@@ -6,6 +6,29 @@ pub enum FileSystemErrors {
     CreateFile(io::Error),
     RenameError(io::Error),
     RemoveError(io::Error),
+}
+
+impl fmt::Display for FileSystemErrors {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let mut message = String::new();
+
+        match self {
+            FileSystemErrors::CreateDirectory(error) => {
+                message = format!("Can't create directory. {}", error);
+            }
+            FileSystemErrors::CreateFile(error) => {
+                message = format!("Can't create file. {}", error);
+            }
+            FileSystemErrors::RenameError(error) => {
+                message = format!("Can't rename file, {}", error);
+            }
+            FileSystemErrors::RemoveError(error) => {
+                message = format!("Can't remove file. {}", error);
+            }
+        }
+
+        write!(f, "{}", message)
+    }
 }
 
 #[derive(Debug, PartialEq)]

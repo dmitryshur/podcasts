@@ -16,10 +16,10 @@ use std::{
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Podcast {
-    id: u64,
-    url: String,
-    rss_url: String,
-    title: String,
+    pub id: u64,
+    pub url: String,
+    pub rss_url: String,
+    pub title: String,
 }
 
 impl fmt::Display for Podcast {

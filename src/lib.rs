@@ -3,6 +3,7 @@ use csv;
 use std::{env, fmt, io, path::PathBuf};
 
 mod consts;
+mod episodes;
 mod file_system;
 mod podcasts;
 mod web;
@@ -123,9 +124,9 @@ impl Application {
                         )
                         .subcommand(
                             App::new("update").arg(
-                                Arg::with_name("name")
-                                    .about("Name of the podcast to update")
-                                    .long("--name")
+                                Arg::with_name("id")
+                                    .about("ID of the podcast to update")
+                                    .long("--id")
                                     .multiple(true)
                                     .takes_value(true),
                             ),
@@ -214,8 +215,8 @@ impl Application {
             return podcasts::Podcasts::new(matches, &self.config).run();
         }
 
-        if let Some(ref _matches) = &self.matches.subcommand_matches("episodes") {
-            unimplemented!();
+        if let Some(ref matches) = &self.matches.subcommand_matches("episodes") {
+            return episodes::Episodes::new(matches, &self.config).run();
         }
 
         Ok(())
