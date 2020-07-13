@@ -1,4 +1,4 @@
-use clap::{self, App, Arg};
+use clap::{self, App, Arg, Values};
 use csv;
 use std::{fmt, io, path::PathBuf};
 
@@ -11,6 +11,7 @@ mod web;
 #[derive(Debug)]
 pub enum Errors {
     RSS,
+    WrongID(u64),
     IO(io::Error),
     CSV(csv::Error),
 }
@@ -19,6 +20,7 @@ impl fmt::Display for Errors {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Errors::RSS => write!(f, "Couldn't parse RSS feed"),
+            Errors::WrongID(id) => write!(f, "Invalid ID: {}", id),
             Errors::IO(ref e) => write!(f, "IO error: {}", e),
             Errors::CSV(ref e) => write!(f, "CSV error: {}", e),
         }
@@ -123,9 +125,9 @@ impl ApplicationBuilder {
                     App::new("list")
                         .about("List episodes. By default lists the episodes of all the podcasts")
                         .arg(
-                            Arg::with_name("name")
-                                .about("Name of the podcast to list")
-                                .long("--name")
+                            Arg::with_name("id")
+                                .about("Id of the podcast to list")
+                                .long("--id")
                                 .takes_value(true)
                                 .multiple(true),
                         ),
