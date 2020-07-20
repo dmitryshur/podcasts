@@ -1,9 +1,11 @@
+use crate::Errors;
 use bytes::Bytes;
 #[cfg(not(test))]
 use rayon::prelude::*;
 #[cfg(not(test))]
 use reqwest;
 
+use reqwest::StatusCode;
 #[cfg(test)]
 use std::io::Read;
 
@@ -12,34 +14,47 @@ pub struct Web {
 }
 
 impl Web {
-    pub fn new() -> Self {
+    pub fn new(timeout: std::time::Duration) -> Self {
         let client = reqwest::blocking::Client::builder()
-            .timeout(std::time::Duration::from_secs(5))
+            .timeout(if timeout == std::time::Duration::from_secs(0) {
+                None
+            } else {
+                Some(timeout)
+            })
             .build()
             .expect("Can't create reqwest client");
         Self { client }
     }
 
     #[cfg(not(test))]
-    pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, reqwest::Result<Bytes>)> {
-        let responses: Vec<(&str, reqwest::Result<Bytes>)> = urls
+    pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, Result<Bytes, Errors>)> {
+        let responses: Vec<(&str, Result<Bytes, Errors>)> = urls
             .par_iter()
             .map(|url| {
-                println!("Fetching podcast {}", *url);
+                println!("Fetching URL {}", *url);
 
-                let bytes = self
-                    .client
-                    .get(*url)
-                    .send()
-                    .and_then(|response| response.bytes())
-                    .map_err(|err| {
-                        if err.is_timeout() {
-                            println!("Request timeout for {}", *url);
+                let bytes = self.client.get(*url).send();
+                return match bytes {
+                    Ok(response) => {
+                        if response.status() == StatusCode::NOT_FOUND {
+                            return (*url, Err(Errors::NotFound((*url).to_string())));
                         }
 
-                        err
-                    });
-                (*url, bytes)
+                        let bytes = response.bytes();
+                        if let Ok(bytes) = bytes {
+                            return (*url, Ok(bytes));
+                        }
+
+                        (*url, Err(Errors::Network(bytes.err().unwrap())))
+                    }
+                    Err(error) => {
+                        if error.is_timeout() {
+                            return (*url, Err(Errors::Timeout((*url).to_string())));
+                        }
+
+                        (*url, Err(Errors::Network(error)))
+                    }
+                };
             })
             .collect();
 

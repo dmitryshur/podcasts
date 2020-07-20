@@ -12,6 +12,7 @@ use std::{
     fmt,
     hash::{Hash, Hasher},
     io::{Read, Write},
+    time,
 };
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -126,7 +127,7 @@ impl<'a> Podcasts<'a> {
             })
             .collect();
 
-        let podcasts: Vec<Podcast> = web::Web::new()
+        let podcasts: Vec<Podcast> = web::Web::new(time::Duration::from_secs(10))
             .get(&urls)
             .iter()
             .filter_map(|(url, response)| match response {

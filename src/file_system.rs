@@ -4,8 +4,8 @@ use std::{fmt, fs, io, path::Path};
 pub enum FileSystemErrors {
     CreateDirectory(io::Error),
     CreateFile(io::Error),
-    RenameError(io::Error),
-    RemoveError(io::Error),
+    Rename(io::Error),
+    Remove(io::Error),
 }
 
 impl fmt::Display for FileSystemErrors {
@@ -13,8 +13,8 @@ impl fmt::Display for FileSystemErrors {
         let message = match self {
             FileSystemErrors::CreateDirectory(error) => format!("Can't create directory. {}", error),
             FileSystemErrors::CreateFile(error) => format!("Can't create file. {}", error),
-            FileSystemErrors::RenameError(error) => format!("Can't rename file, {}", error),
-            FileSystemErrors::RemoveError(error) => format!("Can't remove file. {}", error),
+            FileSystemErrors::Rename(error) => format!("Can't rename file, {}", error),
+            FileSystemErrors::Remove(error) => format!("Can't remove file. {}", error),
         };
 
         write!(f, "{}", message)
@@ -95,7 +95,7 @@ impl<'a, 'b> FileSystem<'a, 'b> {
                 self.file_name = new_name;
                 Ok(())
             }
-            Err(error) => Err(FileSystemErrors::RenameError(error)),
+            Err(error) => Err(FileSystemErrors::Rename(error)),
         };
     }
 
@@ -103,6 +103,6 @@ impl<'a, 'b> FileSystem<'a, 'b> {
     pub fn remove(self) -> Result<(), FileSystemErrors> {
         let path = format!("{}/{}", self.directory.display(), self.file_name);
 
-        fs::remove_file(path).map_err(|error| FileSystemErrors::RemoveError(error))
+        fs::remove_file(path).map_err(|error| FileSystemErrors::Remove(error))
     }
 }

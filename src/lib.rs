@@ -1,6 +1,7 @@
-use clap::{self, App, Arg, Values};
+use clap::{self, App, Arg};
 use csv;
-use std::{fmt, io, path::PathBuf};
+use reqwest;
+use std::{fmt, io, num, path::PathBuf};
 
 mod consts;
 mod episodes;
@@ -11,18 +12,26 @@ mod web;
 #[derive(Debug)]
 pub enum Errors {
     RSS,
-    WrongID(u64),
+    WrongID(String),
+    Parse(num::ParseIntError),
     IO(io::Error),
     CSV(csv::Error),
+    Timeout(String),
+    NotFound(String),
+    Network(reqwest::Error),
 }
 
 impl fmt::Display for Errors {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Errors::RSS => write!(f, "Couldn't parse RSS feed"),
-            Errors::WrongID(id) => write!(f, "Invalid ID: {}", id),
+            Errors::WrongID(ref id) => write!(f, "Invalid ID: {}", id),
+            Errors::Parse(ref e) => write!(f, "Couldn't parse string: {}", e),
             Errors::IO(ref e) => write!(f, "IO error: {}", e),
             Errors::CSV(ref e) => write!(f, "CSV error: {}", e),
+            Errors::Timeout(ref url) => write!(f, "Network timeout for {}", url),
+            Errors::NotFound(ref url) => write!(f, "Resource not found {}", url),
+            Errors::Network(ref e) => write!(f, "Network error {}", e),
         }
     }
 }
@@ -38,8 +47,8 @@ impl From<file_system::FileSystemErrors> for Errors {
         match err {
             file_system::FileSystemErrors::CreateFile(e) => Errors::IO(e),
             file_system::FileSystemErrors::CreateDirectory(e) => Errors::IO(e),
-            file_system::FileSystemErrors::RenameError(e) => Errors::IO(e),
-            file_system::FileSystemErrors::RemoveError(e) => Errors::IO(e),
+            file_system::FileSystemErrors::Rename(e) => Errors::IO(e),
+            file_system::FileSystemErrors::Remove(e) => Errors::IO(e),
         }
     }
 }
@@ -89,6 +98,7 @@ impl ApplicationBuilder {
         self.subcommands.push(
             App::new("podcasts")
                 .arg(
+                    // Lists all the previously added podcasts with the add command
                     Arg::with_name("list")
                         .about("Show a list of previously added RSS feeds")
                         .short('l')
@@ -96,6 +106,8 @@ impl ApplicationBuilder {
                         .conflicts_with_all(&["add", "remove"]),
                 )
                 .arg(
+                    // Adds a new podcasts with the provided RSS feed. doesn't do anything if the
+                    // podcast already exists in the list
                     Arg::with_name("add")
                         .about("Add new RSS feed")
                         .short('a')
@@ -105,6 +117,7 @@ impl ApplicationBuilder {
                         .conflicts_with_all(&["list", "remove"]),
                 )
                 .arg(
+                    // Removes a previously added podcast from the list of saved podcasts
                     Arg::with_name("remove")
                         .about("Remove an existing RSS feed")
                         .short('r')
@@ -122,9 +135,12 @@ impl ApplicationBuilder {
         self.subcommands.push(
             App::new("episodes")
                 .subcommand(
+                    // Lists the saved episodes which were previously saved with the update command
                     App::new("list")
                         .about("List episodes. By default lists the episodes of all the podcasts")
                         .arg(
+                            // The id of the podcast for which we want to list the episodes. if not
+                            // provided, lists the episodes of all the podcasts
                             Arg::with_name("id")
                                 .about("Id of the podcast to list")
                                 .long("--id")
@@ -133,7 +149,10 @@ impl ApplicationBuilder {
                         ),
                 )
                 .subcommand(
+                    // Updates the list of episodes for the podcast
                     App::new("update").arg(
+                        // The id of the podcast for which we wish to update the list of existing
+                        // episodes
                         Arg::with_name("id")
                             .about("ID of the podcast to update")
                             .long("--id")
@@ -142,37 +161,40 @@ impl ApplicationBuilder {
                     ),
                 )
                 .subcommand(
+                    // Download episodes for a particular podcast
                     App::new("download")
                         .arg(
-                            Arg::with_name("podcast")
-                                .about("Name of the podcast")
-                                .long("--podcast")
+                            // The id of the podcast for which we wish to download a new episode.
+                            Arg::with_name("id")
+                                .about("ID of the podcast")
+                                .long("--id")
                                 .required(true)
                                 .takes_value(true),
                         )
                         .arg(
-                            Arg::with_name("name")
-                                .about("Names of the episodes to download")
-                                .long("--name")
+                            // The ids of the episodes we wish to download. if not provided, downloads
+                            // all the existing episodes for the podcast
+                            Arg::with_name("episode-id")
+                                .about("IDs of the episodes to download")
+                                .long("--episode-id")
                                 .multiple(true)
                                 .takes_value(true),
                         )
                         .arg(
-                            Arg::with_name("newest")
-                                .about("Download the newest episodes after the update")
-                                .takes_value(true)
-                                .conflicts_with("name")
-                                .long("--newest"),
+                            // The number of episodes to download if no episode id's were provided
+                            Arg::with_name("count")
+                                .about("Number of episodes to download starting from the most recent one")
+                                .long("--count")
+                                .conflicts_with("episode-id")
+                                .takes_value(true),
                         )
                         .arg(
+                            // The list of downloaded episodes for a particular podcast
                             Arg::with_name("list")
                                 .about("List the downloaded episodes of the provided podcast")
                                 .short('l')
                                 .long("--list")
-                                .conflicts_with("newest")
-                                .conflicts_with("name")
-                                .requires("podcast")
-                                .takes_value(true),
+                                .conflicts_with("episode-id"),
                         ),
                 )
                 .subcommand(
