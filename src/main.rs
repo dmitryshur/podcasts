@@ -1,7 +1,13 @@
 use podcasts::{ApplicationBuilder, Config};
+use rayon;
 use std::{env, path::PathBuf};
 
 fn main() {
+    rayon::ThreadPoolBuilder::new()
+        .num_threads(4)
+        .build_global()
+        .expect("Couldn't create thread pool");
+
     let home_directory = env::var("HOME").expect("Can't find $HOME dir variable");
     let app_directory = env::var("PODCASTS_DIR").unwrap_or(format!("{}/{}", home_directory.clone(), ".podcasts"));
     let download_directory = env::var("PODCASTS_DOWNLOAD_DIR").unwrap_or(format!("{}/episodes", app_directory));

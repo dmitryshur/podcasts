@@ -26,7 +26,7 @@ impl fmt::Display for Errors {
         match *self {
             Errors::RSS => write!(f, "Couldn't parse RSS feed"),
             Errors::WrongID(ref id) => write!(f, "Invalid ID: {}", id),
-            Errors::Parse(ref e) => write!(f, "Couldn't parse string: {}", e),
+            Errors::Parse(ref e) => write!(f, "Couldn't parse string as number: {}", e),
             Errors::IO(ref e) => write!(f, "IO error: {}", e),
             Errors::CSV(ref e) => write!(f, "CSV error: {}", e),
             Errors::Timeout(ref url) => write!(f, "Network timeout for {}", url),
@@ -56,6 +56,12 @@ impl From<file_system::FileSystemErrors> for Errors {
 impl From<io::Error> for Errors {
     fn from(err: io::Error) -> Errors {
         Errors::IO(err)
+    }
+}
+
+impl From<std::num::ParseIntError> for Errors {
+    fn from(err: std::num::ParseIntError) -> Errors {
+        Errors::Parse(err)
     }
 }
 
@@ -227,12 +233,6 @@ impl ApplicationBuilder {
                                 .short('a')
                                 .long("--add")
                                 .conflicts_with("list"),
-                        )
-                        .arg(
-                            Arg::with_name("remove-download")
-                                .about("Remove the added episode from the downloads")
-                                .long("--remove-download")
-                                .requires("add"),
                         ),
                 ),
         );

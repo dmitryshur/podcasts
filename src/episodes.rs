@@ -169,7 +169,7 @@ impl<'a> Episodes<'a> {
             let episodes_file = episodes_file.unwrap();
             match matches.values_of("episode-id") {
                 Some(ids) => {
-                    let files_data = self.download(&ids, episodes_file)?;
+                    let files_data = self.download(Some(&ids), episodes_file, None)?;
                     for (file_name, content) in files_data {
                         let mut file = FileSystem::new(
                             &self.config.download_directory,
@@ -184,10 +184,16 @@ impl<'a> Episodes<'a> {
                 None => {
                     let list_present = matches.is_present("list");
                     let count = matches.value_of("count");
+                    let count = if count.is_none() {
+                        None
+                    } else {
+                        Some(count.unwrap().parse::<usize>()?)
+                    };
 
-                    match (list_present, count) {
-                        // List all downloaded episodes for the podcast
-                        (true, None) => {
+                    match list_present {
+                        // List downloaded episodes for the podcast. use count to indicate how many episodes
+                        // to list
+                        true => {
                             let dir_files =
                                 fs::read_dir(&self.config.download_directory).map_err(|error| Errors::IO(error))?;
 
@@ -207,19 +213,19 @@ impl<'a> Episodes<'a> {
                             }
                             let writer = std::io::stdout();
                             let writer = writer.lock();
-                            self.list_downloaded(episodes_file, downloaded_episodes, writer);
+                            self.list_downloaded(episodes_file, downloaded_episodes, writer, count);
                         }
-                        // List only N amount of episodes for the podcast
-                        (true, Some(count)) => {
-                            // TODO save as above but with count. refactor needed above
-                        }
-                        // Download last N amount of episodes for the podcast
-                        (false, Some(count)) => {
-                            // TODO get N latest episodes from episodes file. pass the ids to self.download
-                        }
-                        // Download all the existing episodes for the podcast
-                        (false, None) => {
-                            // TODO all the ids of the episodes from the episodes file. pass to self.download
+                        false => {
+                            let files_data = self.download(None, episodes_file, count)?;
+                            for (file_name, content) in files_data {
+                                let mut file = FileSystem::new(
+                                    &self.config.download_directory,
+                                    &file_name,
+                                    vec![FilePermissions::Write],
+                                )
+                                .open()?;
+                                file.write_all(content.bytes())?;
+                            }
                         }
                     }
                 }
@@ -305,31 +311,55 @@ impl<'a> Episodes<'a> {
             .deserialize()
             .filter_map(|item: Result<Episode, csv::Error>| item.ok())
             .collect();
-        for episode in episodes {
+        for episode in episodes.iter().rev() {
             writeln!(writer, "{}", episode)?;
         }
 
         Ok(())
     }
 
-    pub fn download<R>(&self, ids: &Values, reader: R) -> Result<Vec<(String, Bytes)>, Errors>
+    pub fn download<R>(
+        &self,
+        ids: Option<&Values>,
+        reader: R,
+        count: Option<usize>,
+    ) -> Result<Vec<(String, Bytes)>, Errors>
     where
         R: Read,
     {
         let mut csv_reader = csv::Reader::from_reader(reader);
-        let mut episode_ids: Vec<&str> = ids.clone().collect();
-        let episodes: HashMap<String, Episode> = csv_reader
+        let mut episode_ids: Option<Vec<&str>> = if ids.is_none() {
+            None
+        } else {
+            Some(ids.unwrap().clone().collect())
+        };
+
+        let episodes: Vec<Episode> = csv_reader
             .deserialize()
             .filter_map(|item: Result<Episode, csv::Error>| item.ok())
-            .filter(|episode| episode_ids.iter().any(|id| *id == episode.guid))
+            .filter(|episode| {
+                // Download all the episodes if no ids were provided
+                if episode_ids.is_none() {
+                    return true;
+                }
+
+                episode_ids.as_ref().unwrap().iter().any(|id| *id == episode.guid)
+            })
+            .collect();
+        let episodes_count = episodes.len();
+
+        // Take count amount of episodes if needed
+        let episodes_map: HashMap<String, Episode> = episodes
+            .into_iter()
+            .take(count.unwrap_or(episodes_count))
             .map(|episode| (episode.link.clone(), episode))
             .collect();
-        let episode_urls: Vec<&str> = episodes.keys().map(|key| key.as_str()).collect();
+        let episode_urls: Vec<&str> = episodes_map.keys().map(|key| key.as_str()).collect();
 
         let mut files_data = Vec::new();
         for (url, bytes) in Web::new(time::Duration::from_secs(0)).get(&episode_urls) {
             let bytes = bytes?;
-            let episode = episodes.get(url).unwrap();
+            let episode = episodes_map.get(url).unwrap();
             let file_name = format!("{}_{}.mp3", episode.podcast, episode.title);
             files_data.push((file_name, bytes));
         }
@@ -345,7 +375,13 @@ impl<'a> Episodes<'a> {
         todo!()
     }
 
-    fn list_downloaded<R, W>(&self, episodes: R, downloaded_episodes: Vec<String>, mut writer: W) -> Result<(), Errors>
+    fn list_downloaded<R, W>(
+        &self,
+        episodes: R,
+        downloaded_episodes: Vec<String>,
+        mut writer: W,
+        count: Option<usize>,
+    ) -> Result<(), Errors>
     where
         R: Read,
         W: Write,
@@ -360,7 +396,13 @@ impl<'a> Episodes<'a> {
             })
             .collect();
 
-        for episode in episodes {
+        for (index, episode) in episodes.iter().rev().enumerate() {
+            if let Some(count) = count {
+                if index < count {
+                    continue;
+                }
+            }
+
             writeln!(writer, "{}", episode)?;
         }
 
