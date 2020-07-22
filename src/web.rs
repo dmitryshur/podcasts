@@ -28,6 +28,7 @@ impl Web {
 
     #[cfg(not(test))]
     pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, Result<Bytes, Errors>)> {
+        println!("test");
         let responses: Vec<(&str, Result<Bytes, Errors>)> = urls
             .par_iter()
             .map(|url| {
