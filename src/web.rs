@@ -5,12 +5,51 @@ use rayon::prelude::*;
 #[cfg(not(test))]
 use reqwest;
 
+use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use reqwest::StatusCode;
-#[cfg(test)]
-use std::io::Read;
+use std::io::{self, Read, Write};
 
 pub struct Web {
     client: reqwest::blocking::Client,
+}
+
+struct DownloadBuffer {
+    inner: Vec<u8>,
+    bytes_count: u64,
+    // Content-Length header might be missing
+    progress_bar: ProgressBar,
+}
+
+impl DownloadBuffer {
+    fn new(total_size: Option<u64>, progress_bars: &MultiProgress) -> Self {
+        // TODO show a spinner if total_size = None
+        let progress_bar = progress_bars.add(ProgressBar::new(total_size.unwrap()));
+        progress_bar.set_style(
+            ProgressStyle::default_bar()
+                .template("{spinner:.green} [{elapsed_precise}] [{bar:40.cyan/blue}] {bytes}/{total_bytes} ({eta})")
+                .progress_chars("#>-"),
+        );
+
+        Self {
+            inner: vec![],
+            bytes_count: 0,
+            progress_bar,
+        }
+    }
+}
+
+impl Write for DownloadBuffer {
+    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+        let written = self.inner.write(buf)?;
+        self.bytes_count += (written as u64);
+        self.progress_bar.set_position(self.bytes_count);
+
+        Ok(written)
+    }
+
+    fn flush(&mut self) -> io::Result<()> {
+        Ok(())
+    }
 }
 
 impl Web {
@@ -28,7 +67,8 @@ impl Web {
 
     #[cfg(not(test))]
     pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, Result<Bytes, Errors>)> {
-        println!("test");
+        let progress_bars = MultiProgress::new();
+
         let responses: Vec<(&str, Result<Bytes, Errors>)> = urls
             .par_iter()
             .map(|url| {
@@ -36,17 +76,20 @@ impl Web {
 
                 let bytes = self.client.get(*url).send();
                 return match bytes {
-                    Ok(response) => {
+                    Ok(mut response) => {
                         if response.status() == StatusCode::NOT_FOUND {
                             return (*url, Err(Errors::NotFound((*url).to_string())));
                         }
 
-                        let bytes = response.bytes();
-                        if let Ok(bytes) = bytes {
-                            return (*url, Ok(bytes));
+                        let content_length = response.content_length();
+                        let mut buffer = DownloadBuffer::new(content_length, &progress_bars);
+                        let bytes_count = response.copy_to(&mut buffer);
+
+                        if let Ok(count) = bytes_count {
+                            return (*url, Ok(Bytes::copy_from_slice(&buffer.inner)));
                         }
 
-                        (*url, Err(Errors::Network(bytes.err().unwrap())))
+                        (*url, Err(Errors::Network(bytes_count.err().unwrap())))
                     }
                     Err(error) => {
                         if error.is_timeout() {
@@ -58,6 +101,8 @@ impl Web {
                 };
             })
             .collect();
+
+        progress_bars.join_and_clear().unwrap();
 
         responses
     }

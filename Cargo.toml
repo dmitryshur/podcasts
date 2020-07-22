@@ -23,3 +23,4 @@ colored = "1.9"
 reqwest = { version = "0.10", features = ["blocking", "json"] }
 rss = "1.0"
 bytes = "0.5.4"
+indicatif = "0.15.0"
