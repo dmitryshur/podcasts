@@ -4,10 +4,11 @@ use bytes::Bytes;
 use rayon::prelude::*;
 #[cfg(not(test))]
 use reqwest;
+use std::sync::Arc;
 
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 use reqwest::StatusCode;
-use std::io::{self, Read, Write};
+use std::io::{self, Write};
 
 pub struct Web {
     client: reqwest::blocking::Client,
@@ -16,20 +17,11 @@ pub struct Web {
 struct DownloadBuffer {
     inner: Vec<u8>,
     bytes_count: u64,
-    // Content-Length header might be missing
     progress_bar: ProgressBar,
 }
 
 impl DownloadBuffer {
-    fn new(total_size: Option<u64>, progress_bars: &MultiProgress) -> Self {
-        // TODO show a spinner if total_size = None
-        let progress_bar = progress_bars.add(ProgressBar::new(total_size.unwrap()));
-        progress_bar.set_style(
-            ProgressStyle::default_bar()
-                .template("{spinner:.green} [{elapsed_precise}] [{bar:40.cyan/blue}] {bytes}/{total_bytes} ({eta})")
-                .progress_chars("#>-"),
-        );
-
+    fn new(progress_bar: ProgressBar) -> Self {
         Self {
             inner: vec![],
             bytes_count: 0,
@@ -41,7 +33,7 @@ impl DownloadBuffer {
 impl Write for DownloadBuffer {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         let written = self.inner.write(buf)?;
-        self.bytes_count += (written as u64);
+        self.bytes_count += written as u64;
         self.progress_bar.set_position(self.bytes_count);
 
         Ok(written)
@@ -67,25 +59,59 @@ impl Web {
 
     #[cfg(not(test))]
     pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, Result<Bytes, Errors>)> {
-        let progress_bars = MultiProgress::new();
+        let pbs = Arc::new(MultiProgress::new());
+        let pbs_clone = Arc::clone(&pbs);
+
+        // Used as a hack so that pbs won't finish right away
+        let temp_pb = pbs.add(ProgressBar::hidden());
+        let thread = std::thread::spawn(move || {
+            let result = pbs_clone.join_and_clear();
+            if let Err(_error) = result {
+                println!("Progress bars error");
+            }
+        });
 
         let responses: Vec<(&str, Result<Bytes, Errors>)> = urls
             .par_iter()
             .map(|url| {
-                println!("Fetching URL {}", *url);
-
                 let bytes = self.client.get(*url).send();
                 return match bytes {
                     Ok(mut response) => {
                         if response.status() == StatusCode::NOT_FOUND {
                             return (*url, Err(Errors::NotFound((*url).to_string())));
                         }
-
                         let content_length = response.content_length();
-                        let mut buffer = DownloadBuffer::new(content_length, &progress_bars);
-                        let bytes_count = response.copy_to(&mut buffer);
+                        let file_name: Vec<&str> = url.split('/').collect();
+                        let file_name = file_name[file_name.len() - 1];
 
-                        if let Ok(count) = bytes_count {
+                        let pb_style = ProgressStyle::default_bar()
+                            .template("{prefix} [{elapsed_precise}] [{bar:40.cyan/blue}] {bytes}/{total_bytes} ({eta})")
+                            .progress_chars("#>-");
+
+                        let spinner_style = ProgressStyle::default_spinner()
+                            .tick_strings(&["▹▹▹▹▹", "▸▹▹▹▹", "▹▸▹▹▹", "▹▹▸▹▹", "▹▹▹▸▹", "▹▹▹▹▸", "▪▪▪▪▪"])
+                            .template("{spinner:.blue} {msg}");
+
+                        // If Content-Length header was absent, draw a spinner. otherwise, draw a normal
+                        // progress bar
+                        let pb = if content_length.is_none() {
+                            let spinner = pbs.add(ProgressBar::new_spinner());
+                            spinner.set_style(spinner_style);
+                            spinner.enable_steady_tick(120);
+                            spinner.set_message(file_name);
+                            spinner
+                        } else {
+                            let bar = pbs.add(ProgressBar::new(content_length.unwrap()));
+                            bar.set_style(pb_style);
+                            bar.set_prefix(file_name);
+                            bar
+                        };
+
+                        let mut buffer = DownloadBuffer::new(pb);
+                        let bytes_count = response.copy_to(&mut buffer);
+                        temp_pb.finish_and_clear();
+
+                        if let Ok(_count) = bytes_count {
                             return (*url, Ok(Bytes::copy_from_slice(&buffer.inner)));
                         }
 
@@ -102,7 +128,10 @@ impl Web {
             })
             .collect();
 
-        progress_bars.join_and_clear().unwrap();
+        let result = thread.join();
+        if let Err(_error) = result {
+            println!("Progress bars error");
+        }
 
         responses
     }
