@@ -3,6 +3,8 @@ name = "podcasts"
 version = "0.1.0"
 authors = ["dmitryshur <dimashur@gmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "Podcasts tracker and downloader"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

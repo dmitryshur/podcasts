@@ -1,6 +1,5 @@
 use crate::Errors;
 use bytes::Bytes;
-use colored::Color::BrightYellow;
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 #[cfg(not(test))]
 use rayon::prelude::*;
