@@ -2,7 +2,7 @@ image: rust:1.45.0
 
 stages:
   - test
-  - deploy
+  - publish
 
 test:
   stage: test
