@@ -12,5 +12,9 @@ test:
 
 build:
   stage: build
+  artifacts:
+    paths:
+      - target/release/podcasts
+    expire_in: 1 day
   script:
     - cargo build --release
