@@ -267,11 +267,11 @@ impl<'a> Episodes<'a> {
                     let link = item.link();
 
                     match (guid, pub_date, title, link) {
-                        (Some(guid), Some(pub_date), Some(title), Some(link)) => Some(Episode {
+                        (Some(guid), Some(pub_date), Some(title), link) => Some(Episode {
                             guid: guid.value().to_string(),
                             pub_date: pub_date.to_string(),
                             title: title.to_string(),
-                            link: link.to_string(),
+                            link: link.unwrap_or("-").to_string(),
                             podcast: podcast_title.to_string(),
                             podcast_id: *podcast_id,
                         }),
