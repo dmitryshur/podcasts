@@ -15,4 +15,5 @@ publish:
   only:
     - master
   script:
-    cargo publish --token "$CARGO_API_KEY"
+    - echo $TEST
+    - cargo publish --token $CARGO_API_KEY
