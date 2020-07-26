@@ -202,38 +202,6 @@ impl ApplicationBuilder {
                                 .long("--list")
                                 .conflicts_with("episode-id"),
                         ),
-                )
-                .subcommand(
-                    App::new("remove").arg(
-                        Arg::with_name("name")
-                            .about("Names of the episodes to remove")
-                            .long("--name")
-                            .multiple(true)
-                            .takes_value(true),
-                    ),
-                )
-                .subcommand(
-                    App::new("archive")
-                        .arg(
-                            Arg::with_name("podcast")
-                                .about("The name of the podcast")
-                                .long("--podcast")
-                                .required(true)
-                                .takes_value(true),
-                        )
-                        .arg(
-                            Arg::with_name("list")
-                                .about("List archived episodes")
-                                .short('l')
-                                .long("--list"),
-                        )
-                        .arg(
-                            Arg::with_name("add")
-                                .about("Add an episode to the archive")
-                                .short('a')
-                                .long("--add")
-                                .conflicts_with("list"),
-                        ),
                 ),
         );
 

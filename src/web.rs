@@ -1,14 +1,17 @@
 use crate::Errors;
 use bytes::Bytes;
+use colored::Color::BrightYellow;
+use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 #[cfg(not(test))]
 use rayon::prelude::*;
 #[cfg(not(test))]
 use reqwest;
-use std::sync::Arc;
-
-use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
-use reqwest::StatusCode;
-use std::io::{self, Write};
+#[cfg(test)]
+use std::io::Read;
+use std::{
+    io::{self, Write},
+    sync::Arc,
+};
 
 pub struct Web {
     client: reqwest::blocking::Client,
@@ -77,7 +80,7 @@ impl Web {
                 let bytes = self.client.get(*url).send();
                 return match bytes {
                     Ok(mut response) => {
-                        if response.status() == StatusCode::NOT_FOUND {
+                        if response.status() == reqwest::StatusCode::NOT_FOUND {
                             return (*url, Err(Errors::NotFound((*url).to_string())));
                         }
                         let content_length = response.content_length();
@@ -137,25 +140,35 @@ impl Web {
     }
 
     #[cfg(test)]
-    pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, Result<Bytes, ()>)> {
-        // The tests work with two files - rss_203.xml, syntax.xml, which contain valid RSS data
-        let responses: Vec<(&str, Result<Bytes, ()>)> = urls
+    pub fn get<'a>(&self, urls: &[&'a str]) -> Vec<(&'a str, Result<Bytes, Errors>)> {
+        // The tests work with two files - http_203.xml, syntax.xml, which contain valid RSS data
+        let responses: Vec<(&str, Result<Bytes, Errors>)> = urls
             .iter()
             .map(|url| {
-                let bytes = if *url == "http://feeds.feedburner.com/Http203Podcast" {
-                    let mut rss_203 = std::fs::File::open("src/rss_203.xml").expect("Can't open rss_203 file");
-                    let mut rss_203_contents = String::new();
-                    rss_203
-                        .read_to_string(&mut rss_203_contents)
-                        .expect("Can't get rss_203 contents");
-                    Ok(Bytes::from(rss_203_contents))
-                } else {
-                    let mut syntax = std::fs::File::open("src/syntax.xml").expect("Can't open syntax file");
-                    let mut syntax_contents = String::new();
-                    syntax
-                        .read_to_string(&mut syntax_contents)
-                        .expect("Can't get syntax contents");
-                    Ok(Bytes::from(syntax_contents))
+                let bytes = match *url {
+                    "http://feeds.feedburner.com/Http203Podcast" => {
+                        let mut http_203 = std::fs::File::open("src/http_203.xml").expect("Can't open http_203 file");
+                        let mut http_203_contents = String::new();
+                        http_203
+                            .read_to_string(&mut http_203_contents)
+                            .expect("Can't get http_203 contents");
+                        Ok(Bytes::from(http_203_contents))
+                    }
+                    "https://feed.syntax.fm/rss" => {
+                        let mut syntax = std::fs::File::open("src/syntax.xml").expect("Can't open syntax file");
+                        let mut syntax_contents = String::new();
+                        syntax
+                            .read_to_string(&mut syntax_contents)
+                            .expect("Can't get syntax contents");
+                        Ok(Bytes::from(syntax_contents))
+                    }
+                    "https://traffic.libsyn.com/secure/syntax/Syntax268.mp3" => {
+                        Ok(Bytes::from("Syntax episode".to_string()))
+                    }
+                    "https://traffic.libsyn.com/secure/http203/HTT_P005.m4a" => {
+                        Ok(Bytes::from("HTTP 203 episode".to_string()))
+                    }
+                    _ => Ok(Bytes::from("".to_string())),
                 };
 
                 (*url, bytes)

@@ -4,7 +4,7 @@ use crate::{
     web::Web,
     Config, Errors,
 };
-use bytes::{Buf, BufMut, Bytes};
+use bytes::{Buf, Bytes};
 use clap::{ArgMatches, Values};
 use colored::*;
 use csv;
@@ -85,7 +85,7 @@ impl<'a> Episodes<'a> {
                     files.insert(podcast.id, file.unwrap());
                 }
 
-                return self.update(&podcasts, files);
+                return self.update(&podcasts, &mut files);
             }
         }
 
@@ -213,7 +213,7 @@ impl<'a> Episodes<'a> {
                             }
                             let writer = std::io::stdout();
                             let writer = writer.lock();
-                            self.list_downloaded(episodes_file, downloaded_episodes, writer, count);
+                            return self.list_downloaded(episodes_file, downloaded_episodes, writer, count);
                         }
                         false => {
                             let files_data = self.download(None, episodes_file, count)?;
@@ -232,18 +232,10 @@ impl<'a> Episodes<'a> {
             }
         }
 
-        match self.matches.subcommand_matches("remove") {
-            _ => {}
-        }
-
-        match self.matches.subcommand_matches("archive") {
-            _ => {}
-        }
-
         Ok(())
     }
 
-    pub fn update<T>(&self, podcasts: &Vec<Podcast>, mut writers: HashMap<u64, T>) -> Result<(), Errors>
+    pub fn update<T>(&self, podcasts: &Vec<Podcast>, writers: &mut HashMap<u64, T>) -> Result<(), Errors>
     where
         T: Write,
     {
@@ -328,7 +320,7 @@ impl<'a> Episodes<'a> {
         R: Read,
     {
         let mut csv_reader = csv::Reader::from_reader(reader);
-        let mut episode_ids: Option<Vec<&str>> = if ids.is_none() {
+        let episode_ids: Option<Vec<&str>> = if ids.is_none() {
             None
         } else {
             Some(ids.unwrap().clone().collect())
@@ -365,14 +357,6 @@ impl<'a> Episodes<'a> {
         }
 
         Ok(files_data)
-    }
-
-    pub fn remove(&self) -> Result<(), Errors> {
-        todo!()
-    }
-
-    pub fn archive(&self) -> Result<(), Errors> {
-        todo!()
     }
 
     fn list_downloaded<R, W>(
@@ -413,29 +397,99 @@ impl<'a> Episodes<'a> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::{Application, ApplicationBuilder};
+    use clap::{App, Arg};
+    use std::path::PathBuf;
+    use std::str::from_utf8;
 
-    #[test]
-    fn update() {
-        todo!()
+    fn create_config() -> Config {
+        let app_directory = "/Users/dmitryshur/.podcasts";
+        let download_directory = "/Users/dmitryshur/.podcasts/downloads";
+
+        Config {
+            app_directory: PathBuf::from(app_directory),
+            download_directory: PathBuf::from(download_directory),
+        }
+    }
+
+    fn create_app() -> Application {
+        let config = create_config();
+        ApplicationBuilder::new(config).episodes_subcommand().build()
     }
 
     #[test]
-    fn list() {
-        todo!()
+    fn update() {
+        let app = create_app();
+        let config = create_config();
+        let args = app
+            .app
+            .get_matches_from(vec!["pcasts", "episodes", "update", "--id", "15913066141282366353"]);
+        let episodes_matches = args.subcommand_matches("episodes").expect("No episodes matches");
+        let episodes = Episodes::new(&episodes_matches, &config);
+        let podcasts = vec![Podcast {
+            id: 15913066141282366353,
+            url: "https://syntax.fm".to_string(),
+            rss_url: "https://feed.syntax.fm/rss".to_string(),
+            title: "Syntax - Tasty Web Development Treats".to_string(),
+        }];
+        let mut syntax_expected_output = String::new();
+        let mut file = File::open("src/test_files/syntax.csv").expect("Can't open syntax.csv");
+        file.read_to_string(&mut syntax_expected_output)
+            .expect("Can't write syntax.csv");
+
+        let mut writers = HashMap::new();
+        writers.insert(15913066141282366353, Vec::new());
+        episodes.update(&podcasts, &mut writers);
+
+        let syntax_output_string = from_utf8(writers.get(&15913066141282366353).unwrap()).unwrap();
+
+        assert_eq!(syntax_output_string.trim(), syntax_expected_output.trim());
+    }
+
+    #[test]
+    fn list_episodes() {
+        let app = create_app();
+        let config = create_config();
+        let args = app.app.get_matches_from(vec!["pcasts", "episodes", "list"]);
+        let episodes_matches = args.subcommand_matches("episodes").expect("No episodes matches");
+        let episodes = Episodes::new(&episodes_matches, &config);
+
+        let input = r###"guid,title,pub_date,link,podcast,podcast_id
+272eca72-476b-4633-864c-a9fffa3f5976,Potluck - Beating Procrastination × Rollup vs Webpack × Leadership × Code Planning × Styled Components × More!,"Wed, 22 Jul 2020 13:00:00 +0000",https://traffic.libsyn.com/secure/syntax/Syntax268.mp3,Syntax - Tasty Web Development Treats,15913066141282366353"###;
+        let input = input.as_bytes();
+        let episode = Episode {
+            guid: "272eca72-476b-4633-864c-a9fffa3f5976".to_string(),
+            title: "Potluck - Beating Procrastination × Rollup vs Webpack × Leadership × Code Planning × Styled Components × More!".to_string(),
+            pub_date: "Wed, 22 Jul 2020 13:00:00 +0000".to_string(),
+            link: "https://traffic.libsyn.com/secure/syntax/Syntax268.mp3".to_string(),
+            podcast: "Syntax - Tasty Web Development Treats".to_string(),
+            podcast_id: 15913066141282366353
+        };
+        let expected_output = episode.to_string();
+        let mut output = Vec::new();
+        episodes.list(input, &mut output).expect("Can't list episodes");
+        assert_eq!(from_utf8(&output).unwrap().trim(), expected_output.trim());
     }
 
     #[test]
     fn download() {
-        todo!()
-    }
+        let app = create_app();
+        let config = create_config();
+        let args = app
+            .app
+            .get_matches_from(vec!["pcasts", "episodes", "download", "--id", "15913066141282366353"]);
+        let episodes_matches = args.subcommand_matches("episodes").expect("No episodes matches");
+        let episode_id = episodes_matches.values_of("episode-id");
+        let episodes = Episodes::new(&episodes_matches, &config);
 
-    #[test]
-    fn remove() {
-        todo!()
-    }
+        let input = r###"guid,title,pub_date,link,podcast,podcast_id
+272eca72-476b-4633-864c-a9fffa3f5976,Potluck - Beating Procrastination × Rollup vs Webpack × Leadership × Code Planning × Styled Components × More!,"Wed, 22 Jul 2020 13:00:00 +0000",https://traffic.libsyn.com/secure/syntax/Syntax268.mp3,Syntax - Tasty Web Development Treats,15913066141282366353"###;
+        let input = input.as_bytes();
+        let expected_output = vec![(format!("{}_{}.mp3", "Syntax - Tasty Web Development Treats", "Potluck - Beating Procrastination × Rollup vs Webpack × Leadership × Code Planning × Styled Components × More!"), Bytes::from("Syntax episode"))];
+        let output = episodes
+            .download(episode_id.as_ref(), input, None)
+            .expect("Can't download episodes");
 
-    #[test]
-    fn archive() {
-        todo!()
+        assert_eq!(output, expected_output);
     }
 }
