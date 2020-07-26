@@ -6,7 +6,7 @@ fn main() {
     rayon::ThreadPoolBuilder::new()
         .num_threads(4)
         .build_global()
-        .expect("Couldn't create thread pool");
+        .expect("Couldn't create rayon thread pool");
 
     let home_directory = env::var("HOME").expect("Can't find $HOME dir variable");
     let app_directory = env::var("PODCASTS_DIR").unwrap_or(format!("{}/{}", home_directory.clone(), ".podcasts"));

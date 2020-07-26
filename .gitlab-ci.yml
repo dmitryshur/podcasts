@@ -2,7 +2,6 @@ image: rust:1.45.0
 
 stages:
   - test
-  - build
   - deploy
 
 test:
@@ -10,11 +9,12 @@ test:
   script:
     - cargo test
 
-build:
-  stage: build
-  artifacts:
-    paths:
-      - target/release/podcasts
-    expire_in: 1 day
+publish:
+  stage: publish
+  when: manual
+  only:
+    - master
+  before_script:
+    - cargo login $CARGO_API_KEY
   script:
-    - cargo build --release
+    cargo publish
